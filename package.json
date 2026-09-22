@@ -1,0 +1,33 @@
+{
+  "name": "luxurydurbar",
+  "private": true,
+  "packageManager": "pnpm@10.34.5",
+  "scripts": {
+    "dev": "pnpm -r --parallel --filter @luxurydurbar/api --filter @luxurydurbar/website --filter @luxurydurbar/admin run dev",
+    "dev:api": "pnpm --filter @luxurydurbar/api run dev",
+    "dev:website": "pnpm --filter @luxurydurbar/website run dev",
+    "dev:admin": "pnpm --filter @luxurydurbar/admin run dev",
+    "build": "pnpm -r --filter @luxurydurbar/shared --filter @luxurydurbar/api --filter @luxurydurbar/website --filter @luxurydurbar/admin run build",
+    "lint": "pnpm -r --filter @luxurydurbar/api --filter @luxurydurbar/website --filter @luxurydurbar/admin --filter @luxurydurbar/shared run lint",
+    "typecheck": "pnpm -r --filter @luxurydurbar/shared --filter @luxurydurbar/api --filter @luxurydurbar/website --filter @luxurydurbar/admin run typecheck",
+    "db:migrate": "pnpm --filter @luxurydurbar/api run db:migrate",
+    "db:seed": "pnpm --filter @luxurydurbar/api run db:seed",
+    "db:generate": "pnpm --filter @luxurydurbar/api run db:generate",
+    "docker:up": "docker compose --project-directory services up -d",
+    "docker:down": "docker compose --project-directory services down"
+  },
+  "devDependencies": {
+    "concurrently": "^9.1.2"
+  },
+  "pnpm": {
+    "onlyBuiltDependencies": [
+      "@prisma/client",
+      "@prisma/engines",
+      "prisma",
+      "esbuild",
+      "@nestjs/core",
+      "@parcel/watcher",
+      "unrs-resolver"
+    ]
+  }
+}

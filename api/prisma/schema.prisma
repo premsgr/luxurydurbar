@@ -1,0 +1,99 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+enum UserRole {
+  admin
+  staff
+}
+
+enum BookingStatus {
+  pending
+  confirmed
+  rejected
+  cancelled
+}
+
+enum EventType {
+  wedding
+  reception
+  birthday
+  corporate
+  engagement
+  other
+}
+
+model User {
+  id           String   @id @default(cuid())
+  email        String   @unique
+  passwordHash String
+  name         String
+  role         UserRole @default(staff)
+  resetToken   String?
+  resetExpires DateTime?
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+}
+
+model Hall {
+  id          String         @id @default(cuid())
+  name        String
+  slug        String         @unique
+  capacity    Int
+  description String
+  amenities   String[]
+  sortOrder   Int            @default(0)
+  published   Boolean        @default(true)
+  images      HallImage[]
+  bookings    Booking[]
+  blockedSlots BlockedSlot[]
+  createdAt   DateTime       @default(now())
+  updatedAt   DateTime       @updatedAt
+}
+
+model HallImage {
+  id        String @id @default(cuid())
+  hallId    String
+  hall      Hall   @relation(fields: [hallId], references: [id], onDelete: Cascade)
+  url       String
+  caption   String?
+  sortOrder Int    @default(0)
+}
+
+model Booking {
+  id            String        @id @default(cuid())
+  hallId        String
+  hall          Hall          @relation(fields: [hallId], references: [id], onDelete: Restrict)
+  eventDate     DateTime      @db.Date
+  startTime     String
+  endTime       String
+  guestCount    Int
+  eventType     EventType
+  customerName  String
+  customerEmail String
+  customerPhone String
+  notes         String?
+  status        BookingStatus @default(pending)
+  createdAt     DateTime      @default(now())
+  updatedAt     DateTime      @updatedAt
+
+  @@index([hallId, eventDate, status])
+}
+
+model BlockedSlot {
+  id        String   @id @default(cuid())
+  hallId    String
+  hall      Hall     @relation(fields: [hallId], references: [id], onDelete: Cascade)
+  date      DateTime @db.Date
+  startTime String
+  endTime   String
+  reason    String?
+  createdAt DateTime @default(now())
+
+  @@index([hallId, date])
+}
