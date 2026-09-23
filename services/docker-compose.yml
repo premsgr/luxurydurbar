@@ -6,7 +6,7 @@ services:
     container_name: luxurydurbar-postgres
     restart: unless-stopped
     ports:
-      - '${POSTGRES_HOST_PORT:-5434}:5432'
+      - '${POSTGRES_HOST_PORT:-33005}:5432'
     environment:
       POSTGRES_USER: ${POSTGRES_USER:-luxurydurbar}
       POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-luxurydurbar}
@@ -24,8 +24,20 @@ services:
     container_name: luxurydurbar-mailpit
     restart: unless-stopped
     ports:
-      - '${MAILPIT_SMTP_PORT:-1025}:1025'
-      - '${MAILPIT_UI_PORT:-8025}:8025'
+      - '${MAILPIT_SMTP_PORT:-33016}:1025'
+      - '${MAILPIT_UI_PORT:-33006}:8025'
+
+  adminer:
+    image: adminer:4
+    container_name: luxurydurbar-adminer
+    restart: unless-stopped
+    ports:
+      - '${ADMINER_PORT:-33007}:8080'
+    environment:
+      ADMINER_DEFAULT_SERVER: postgres
+    depends_on:
+      postgres:
+        condition: service_healthy
 
 volumes:
   postgres_data:

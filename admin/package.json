@@ -4,9 +4,9 @@
   "version": "0.0.1",
   "type": "module",
   "scripts": {
-    "dev": "vite --port 3001",
+    "dev": "vite --port 33002",
     "build": "vite build",
-    "preview": "vite preview --port 3001",
+    "preview": "vite preview --port 33002",
     "lint": "vue-tsc --noEmit",
     "typecheck": "vue-tsc --noEmit"
   },

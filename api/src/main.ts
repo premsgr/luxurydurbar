@@ -5,8 +5,8 @@ import { AppModule } from './app.module';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
-  const websiteOrigin = process.env.WEBSITE_ORIGIN || 'http://localhost:3000';
-  const adminOrigin = process.env.ADMIN_ORIGIN || 'http://localhost:3001';
+  const websiteOrigin = process.env.WEBSITE_ORIGIN || 'http://localhost:33001';
+  const adminOrigin = process.env.ADMIN_ORIGIN || 'http://localhost:33002';
 
   app.use(cookieParser());
   app.enableCors({
@@ -21,7 +21,7 @@ async function bootstrap() {
     }),
   );
 
-  const port = Number(process.env.API_PORT || process.env.PORT || 4000);
+  const port = Number(process.env.API_PORT || process.env.PORT || 33000);
   await app.listen(port);
   console.log(`API listening on http://localhost:${port}`);
 }

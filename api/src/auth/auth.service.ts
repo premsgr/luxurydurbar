@@ -83,7 +83,7 @@ export class AuthService {
     });
     const adminOrigin = this.config.get(
       'ADMIN_ORIGIN',
-      'http://localhost:3001',
+      'http://localhost:33002',
     );
     await this.mail.passwordReset(
       user.email,

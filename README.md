@@ -8,7 +8,7 @@ Monorepo for the Luxury Durbar banquet website, staff admin app, and API.
 - **Admin** — Vue 3 + Vite SPA at `admin/`
 - **API** — NestJS + Prisma at `api/`
 - **Shared** — types at `packages/shared`
-- **Infra** — PostgreSQL 16 + Mailpit via `services/docker-compose.yml`
+- **Infra** — PostgreSQL 16, Mailpit, and Adminer via `services/docker-compose.yml`
 
 ## Prerequisites
 
@@ -30,19 +30,23 @@ pnpm --filter @luxurydurbar/shared build
 pnpm dev
 ```
 
-| Service    | URL                        |
-| ---------- | -------------------------- |
-| Website    | http://localhost:3000      |
-| Admin      | http://localhost:3001      |
-| API        | http://localhost:4000      |
-| Postgres   | localhost:5434 (host) / 5432 (container) |
-| Mailpit UI | http://localhost:8025      |
+Host ports are `33000` plus an offset: API `0`, website `1`, admin `2`, Postgres `5`, Mailpit UI `6`, Adminer `7`. Mailpit SMTP is `33016`.
+
+| Service      | URL                                      |
+| ------------ | ---------------------------------------- |
+| API          | http://localhost:33000                   |
+| Website      | http://localhost:33001                   |
+| Admin        | http://localhost:33002                   |
+| Postgres     | localhost:33005 (host) / 5432 (container) |
+| Mailpit UI   | http://localhost:33006                   |
+| Mailpit SMTP | localhost:33016                          |
+| Adminer      | http://localhost:33007                   |
 
 Env files (not committed):
 
 - `api/.env` — database, JWT, SMTP, CORS, seed
 - `admin/.env` — `VITE_API_BASE`
-- `services/.env` — Postgres / Mailpit ports and credentials
+- `services/.env` — Postgres, Mailpit, and Adminer ports and credentials
 
 Default staff login (from seed):
 
@@ -53,4 +57,4 @@ Default staff login (from seed):
 
 - `pnpm lint` — lint all packages
 - `pnpm typecheck` — TypeScript checks for all packages
-- `pnpm docker:up` / `pnpm docker:down` — start/stop Postgres + Mailpit
+- `pnpm docker:up` / `pnpm docker:down` — start/stop Postgres, Mailpit, and Adminer

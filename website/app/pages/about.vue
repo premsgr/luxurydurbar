@@ -1,28 +1,87 @@
 <template>
-  <div class="section max-w-3xl">
-    <p class="font-sans-ui text-xs uppercase tracking-[0.3em] text-[#c9a227]">Our story</p>
-    <h1 class="mt-2 text-4xl">About Luxury Durbar</h1>
-    <div class="mt-8 space-y-5 font-sans-ui text-stone-300 leading-relaxed text-lg">
-      <p>
-        Luxury Durbar was built as a destination for celebrations that deserve a grand stage —
-        weddings that linger in memory, receptions that sparkle, and gatherings that feel exclusive.
-      </p>
-      <p>
-        Our halls blend traditional elegance with modern hospitality: crystal lighting, flexible
-        floor plans, catering-ready kitchens, and a team that treats every event as the most important of the year.
-      </p>
-      <p>
-        Whether you need an intimate chamber or a hall for hundreds of guests, we help you host
-        with confidence — from first inquiry to the final toast.
-      </p>
-    </div>
-    <NuxtLink to="/book" class="btn-gold mt-10 inline-flex">Plan your event</NuxtLink>
+  <div>
+    <section class="relative min-h-[50vh] flex items-end overflow-hidden border-b border-white/10">
+      <img
+        :src="PHOTOS.hero"
+        alt=""
+        class="hero-zoom absolute inset-0 h-full w-full object-cover opacity-40"
+      />
+      <div class="absolute inset-0 bg-gradient-to-t from-ink via-ink/70 to-ink/40" />
+      <div class="relative section !py-20">
+        <p class="eyebrow hero-fade-in">{{ t('about.eyebrow') }}</p>
+        <h1 class="hero-fade-in hero-fade-in--delay-1 mt-4 max-w-4xl text-4xl sm:text-5xl lg:text-6xl leading-tight text-white tracking-wide">
+          {{ t('about.statement') }}
+        </h1>
+        <span class="hero-gold-line" aria-hidden="true" />
+      </div>
+    </section>
+
+    <section class="section max-w-3xl">
+      <Reveal>
+        <p class="font-sans text-lg text-white/70 leading-relaxed">
+          {{ t('about.intro') }}
+        </p>
+      </Reveal>
+    </section>
+
+    <section class="border-y border-white/10 bg-white/[0.02]">
+      <div class="section">
+        <Reveal>
+          <h2 class="text-3xl text-white tracking-wide">{{ t('about.principles.title') }}</h2>
+        </Reveal>
+        <div class="mt-12 grid gap-10 md:grid-cols-3">
+          <Reveal
+            v-for="(key, i) in principleKeys"
+            :key="key"
+            :delay="i * 100"
+          >
+            <div>
+              <h3 class="text-xl text-gold-light">{{ t(`about.principles.${key}.title`) }}</h3>
+              <p class="mt-4 font-sans text-sm text-white/60 leading-relaxed">
+                {{ t(`about.principles.${key}.text`) }}
+              </p>
+            </div>
+          </Reveal>
+        </div>
+      </div>
+    </section>
+
+    <section class="section grid gap-10 md:grid-cols-2 items-center">
+      <Reveal>
+        <img
+          :src="PHOTOS.hall"
+          alt="Luxury Durbar hall"
+          class="w-full aspect-[4/3] object-cover border border-white/10"
+        />
+      </Reveal>
+      <Reveal :delay="120">
+        <div>
+          <NuxtLinkLocale to="/contact" class="btn-gold">{{ t('about.cta') }}</NuxtLinkLocale>
+        </div>
+      </Reveal>
+    </section>
   </div>
 </template>
 
+<script lang="ts">
+export default { name: 'AboutPage' }
+</script>
+
 <script setup lang="ts">
+import { PHOTOS } from '~/utils/photos'
+import { SEO_KEYWORDS } from '~/utils/seo'
+
+const { t } = useI18n()
+const config = useRuntimeConfig()
+
 useSeoMeta({
-  title: 'About — Luxury Durbar',
-  description: 'Learn about Luxury Durbar, a grand banquet venue for weddings and celebrations.',
+  title: () => t('about.seoTitle'),
+  description: () => t('about.seoDesc'),
+  keywords: SEO_KEYWORDS,
+  ogTitle: () => t('about.seoTitle'),
+  ogDescription: () => t('about.seoDesc'),
+  ogImage: () => `${config.public.siteUrl}${PHOTOS.hero}`,
 })
+
+const principleKeys = ['hospitality', 'detail', 'coordination'] as const
 </script>

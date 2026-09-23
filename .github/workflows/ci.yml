@@ -40,7 +40,7 @@ jobs:
         run: pnpm --filter @luxurydurbar/api run db:generate
         env:
           # Prisma generate does not need a live DB; URL is required by schema.
-          DATABASE_URL: postgresql://luxurydurbar:luxurydurbar@localhost:5434/luxurydurbar?schema=public
+          DATABASE_URL: postgresql://luxurydurbar:luxurydurbar@localhost:33005/luxurydurbar?schema=public
 
       - name: Lint
         run: pnpm lint

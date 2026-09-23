@@ -1,0 +1,501 @@
+{
+  "brand": {
+    "name": "Luxury Durbar",
+    "tagline": "Banquet & Events"
+  },
+  "nav": {
+    "home": "Home",
+    "venues": "Venues",
+    "packages": "Packages",
+    "gallery": "Gallery",
+    "about": "About Us",
+    "contact": "Contact Us",
+    "bookTour": "Book a Tour",
+    "menu": "Menu",
+    "close": "Close"
+  },
+  "footer": {
+    "blurb": "A grand banquet destination for weddings, receptions, and unforgettable celebrations in Kathmandu Valley.",
+    "visit": "Visit",
+    "location": "Kathmandu Valley\nNepal",
+    "contact": "Contact",
+    "phone": "+977-1-0000000",
+    "email": "hello{'@'}luxurydurbar.local",
+    "ctaTitle": "Ready to Plan Your Event?",
+    "ctaSub": "Lock in your preferred date before it fills up.",
+    "ctaButton": "Request a Custom Quote",
+    "rights": "© {year} Luxury Durbar. All rights reserved.",
+    "hours": "Tue–Sun, 10:00 AM – 7:00 PM"
+  },
+  "common": {
+    "loading": "Loading…",
+    "loadError": "Could not load data. Is the API running?",
+    "viewAll": "View all",
+    "guests": "Up to {count} guests",
+    "capacity": "Capacity {count} guests"
+  },
+  "home": {
+    "seoTitle": "Luxury Durbar — Banquet, Events & Bratabandha in Kathmandu",
+    "seoDesc": "Premium banquet hall in Kathmandu, Nepal for weddings, parties, birthday celebrations, and Bratabandha (bartabandha) ceremonies.",
+    "eyebrow": "A stage for stories",
+    "headline": "Every celebration begins like a whisper and ends like a legend",
+    "subhead": "Luxury Durbar is where Kathmandu gathers — for weddings that linger, nights that sparkle, and tables that never run out of stories.",
+    "ctaPrimary": "Check Date Availability",
+    "ctaSecondary": "Schedule a Venue Tour",
+    "story": {
+      "eyebrow": "The Durbar story",
+      "collage": {
+        "wedding": "Wedding celebration at a grand venue",
+        "ceremony": "Outdoor ceremony seating",
+        "dining": "Formal banquet dining",
+        "tables": "Restaurant tables ready for guests",
+        "toast": "Guests raising a toast",
+        "cheers": "Evening celebration lights",
+        "business": "Business conference audience",
+        "conference": "Corporate event networking",
+        "lounge": "Cocktail lounge bar",
+        "luxury": "Luxury hotel evening ambiance",
+        "lightboxLabel": "Story photo",
+        "close": "Close"
+      },
+      "chapters": {
+        "lifetime": {
+          "title": "Every event is a lifetime story",
+          "text": "A wedding, a reunion, a milestone gala — the night you host here becomes part of your family lore, retold for years.",
+          "alt": "Grand ballroom ready for a celebration"
+        },
+        "gossip": {
+          "title": "Every table holds good gossip",
+          "text": "Crystal glasses clink, cousins lean in, and old friends catch up. The room hums with laughter worth overhearing.",
+          "alt": "Banquet dining tables set for guests"
+        },
+        "toast": {
+          "title": "Every toast becomes a legend",
+          "text": "Speeches land. Champagne rises. Guests remember the exact moment the room went quiet — then erupted.",
+          "alt": "Guests celebrating under warm lights"
+        },
+        "business": {
+          "title": "Every boardroom deserves a grand stage",
+          "text": "Product launches, annual galas, and client evenings — business events here feel as polished as the deals they celebrate.",
+          "alt": "Business event reception in a banquet hall"
+        },
+        "gold": {
+          "title": "Every night leaves a little gold behind",
+          "text": "Warm light on silk, spice on the air, music that refuses to fade. You leave with more than photos — you leave with gold.",
+          "alt": "Lounge bar glowing with gold light"
+        }
+      }
+    },
+    "highlights": {
+      "title": "Why hosts choose us",
+      "flexible": {
+        "title": "Flexible Spaces",
+        "text": "Accommodating intimate gatherings of 50 up to grand receptions of 1,000+."
+      },
+      "catering": {
+        "title": "In-House Catering",
+        "text": "Custom multi-cuisine menus curated by expert chefs — vegetarian, non-vegetarian, or mixed."
+      },
+      "support": {
+        "title": "Full-Service Event Support",
+        "text": "Lighting, sound, decor, and dedicated event management on-site."
+      },
+      "location": {
+        "title": "Prime Location",
+        "text": "Convenient access with ample private parking and valet services."
+      }
+    },
+    "venues": {
+      "eyebrow": "Our venues",
+      "title": "Designed for Every Occasion",
+      "subtext": "Explore our distinct halls tailored to match your event's scale and mood.",
+      "tabs": {
+        "all": "All",
+        "weddings": "Weddings",
+        "corporate": "Business Events",
+        "social": "Social Parties"
+      },
+      "viewSpecs": "View Hall Specs"
+    },
+    "galleryStrip": {
+      "eyebrow": "Moments in motion",
+      "title": "A glimpse of nights that still get talked about"
+    },
+    "testimonials": {
+      "eyebrow": "Stories from our hosts",
+      "title": "Trusted by 500+ Happy Hosts",
+      "items": [
+        {
+          "quote": "Hosting our wedding reception here was the best decision we made. The lighting, food, and staff coordination were flawless!",
+          "author": "Priya & Rohan S.",
+          "role": "Wedding Host"
+        },
+        {
+          "quote": "Our annual corporate gala was seamless. Professional service and top-notch audio/visual tech.",
+          "author": "Ankit M.",
+          "role": "HR Director"
+        }
+      ]
+    },
+    "cta": {
+      "title": "Ready to write your chapter?",
+      "sub": "Lock in your preferred date before it fills up.",
+      "button": "Request a Custom Quote"
+    }
+  },
+  "menu": {
+    "eyebrow": "The table",
+    "title": "What's on the menu",
+    "customize": "Fully customizable for your guests — choose vegetarian, non-vegetarian, or a mixed feast. Jain and vegan plates available on request.",
+    "note": "This is a sample banquet selection. Our chefs craft a menu around your story, dietary needs, and budget.",
+    "filters": {
+      "all": "All",
+      "veg": "Vegetarian",
+      "nonveg": "Non-vegetarian"
+    },
+    "diet": {
+      "veg": "Veg",
+      "nonveg": "Non-veg"
+    },
+    "courses": {
+      "starters": "Starters",
+      "mains": "Mains",
+      "nepali": "Nepali table",
+      "dessert": "Dessert"
+    },
+    "dishes": {
+      "paneerTikka": {
+        "name": "Paneer Tikka",
+        "desc": "Char-grilled cottage cheese with smoky spices"
+      },
+      "chickenTikka": {
+        "name": "Chicken Tikka",
+        "desc": "Tender chicken, yogurt-marinated and flame-kissed"
+      },
+      "vegSpringRoll": {
+        "name": "Vegetable Spring Rolls",
+        "desc": "Crisp rolls with seasonal garden filling"
+      },
+      "fishAmritsari": {
+        "name": "Amritsari Fish",
+        "desc": "Spiced batter-fried fillets with chaat masala"
+      },
+      "dalMakhani": {
+        "name": "Dal Makhani",
+        "desc": "Slow-cooked black lentils finished with cream"
+      },
+      "butterChicken": {
+        "name": "Butter Chicken",
+        "desc": "Classic tomato-butter gravy with tender chicken"
+      },
+      "palakPaneer": {
+        "name": "Palak Paneer",
+        "desc": "Fresh spinach gravy with soft paneer cubes"
+      },
+      "muttonCurry": {
+        "name": "Mutton Curry",
+        "desc": "Slow-braised mutton in aromatic Nepali spices"
+      },
+      "dalBhat": {
+        "name": "Dal Bhat Tarkari",
+        "desc": "The beloved Nepali plate — dal, rice, and seasonal tarkari"
+      },
+      "chickenSekuwa": {
+        "name": "Chicken Sekuwa",
+        "desc": "Charcoal-grilled Nepali-style chicken skewers"
+      },
+      "vegMomos": {
+        "name": "Vegetable Momos",
+        "desc": "Steamed dumplings with a warming dipping sauce"
+      },
+      "buffChoila": {
+        "name": "Buff Choila",
+        "desc": "Spiced grilled buffalo — a Newari classic"
+      },
+      "gulabJamun": {
+        "name": "Gulab Jamun",
+        "desc": "Warm milk dumplings in rose syrup"
+      },
+      "kheer": {
+        "name": "Kheer",
+        "desc": "Cardamom rice pudding with toasted nuts"
+      },
+      "iceCream": {
+        "name": "Assorted Ice Cream",
+        "desc": "A cool finish for the celebration"
+      }
+    }
+  },
+  "halls": {
+    "seoTitle": "Venues & Halls — Luxury Durbar",
+    "seoDesc": "Modern architecture, flexible layouts, and state-of-the-art amenities at Luxury Durbar.",
+    "banner": {
+      "title": "Our Event Spaces",
+      "subtitle": "Modern architecture, flexible layouts, and state-of-the-art amenities."
+    },
+    "viewHall": "View Hall",
+    "inquire": "Inquire About This Hall",
+    "comparison": {
+      "title": "Capacity & Amenities",
+      "feature": "Feature / Amenity",
+      "maxCapacity": "Max Capacity",
+      "av": "AV & Projectors",
+      "bridal": "Private Bridal / Dressing",
+      "valet": "Valet Parking",
+      "catering": "In-House Catering",
+      "included": "Included",
+      "onRequest": "On Request",
+      "available": "Available",
+      "dressing": "Standard Dressing Room"
+    },
+    "detail": {
+      "amenities": "Amenities",
+      "requestTitle": "Request this hall",
+      "requestText": "Check availability and request a venue tour. Our team will confirm shortly.",
+      "bookCta": "Inquire About {name}",
+      "notFound": "Hall not found."
+    },
+    "marketing": {
+      "royal-durbar-hall": {
+        "bestFor": "Weddings, Large Conferences, Award Shows",
+        "capacityLabel": "Up to 800 guests (Reception) {'|'} 500 guests (Seated Dinner)",
+        "features": "Crystal chandeliers, 20ft ceilings, stage built-in, private VIP green room.",
+        "layouts": "Banquet, Classroom, Theater, Cocktail setup.",
+        "av": "included",
+        "bridal": "included",
+        "valet": "included",
+        "catering": "available"
+      },
+      "peacock-garden-hall": {
+        "bestFor": "Engagement parties, Corporate workshops, Anniversaries",
+        "capacityLabel": "Up to 350 guests",
+        "features": "Ambient LED lighting control, sound system, attached outdoor terrace access.",
+        "layouts": "Banquet, Cocktail, Theater setup.",
+        "av": "included",
+        "bridal": "included",
+        "valet": "included",
+        "catering": "available"
+      },
+      "emerald-chamber": {
+        "bestFor": "Private dinners, Birthdays, Exclusive gatherings",
+        "capacityLabel": "Up to 120 guests",
+        "features": "Private entrance, lounge seating, custom décor, intimate lighting.",
+        "layouts": "Banquet, Boardroom, Cocktail setup.",
+        "av": "onRequest",
+        "bridal": "dressing",
+        "valet": "included",
+        "catering": "available"
+      }
+    },
+    "labels": {
+      "bestFor": "Best For",
+      "keyFeatures": "Key Features",
+      "layoutOptions": "Layout Options"
+    }
+  },
+  "packages": {
+    "seoTitle": "Packages & Pricing — Luxury Durbar",
+    "seoDesc": "Transparent event packages for stress-free celebrations at Luxury Durbar.",
+    "banner": {
+      "title": "Transparent Event Packages",
+      "subtitle": "Everything you need for a stress-free celebration, bundled for maximum value."
+    },
+    "gold": {
+      "name": "Gold Package",
+      "tagline": "Weddings & Grand Events",
+      "items": [
+        "8-Hour Hall Rental",
+        "4-Course Buffet Catering",
+        "Standard Floral Decor & Stage",
+        "Sound System + Wireless Mics",
+        "Bridal Suite Access"
+      ],
+      "cta": "Request Gold Pricing"
+    },
+    "platinum": {
+      "name": "Platinum Package",
+      "tagline": "All-Inclusive Luxury",
+      "items": [
+        "Full-Day Exclusive Hall Access",
+        "5-Course Custom Gourmet Menu",
+        "Premium Floral Decor & Lighting",
+        "Dedicated Event Coordinator",
+        "Valet Parking + DJ Station"
+      ],
+      "cta": "Request Platinum Pricing"
+    },
+    "addons": {
+      "title": "À La Carte & Add-On Services",
+      "items": [
+        "Customized Stage & Theme Decoration",
+        "Live Food Counters & Mocktail/Cocktail Bars",
+        "Drone Photography & Videography Coverage",
+        "LED Screen Walls & Custom Lighting Rigging"
+      ]
+    }
+  },
+  "gallery": {
+    "seoTitle": "Gallery — Luxury Durbar Banquet Kathmandu",
+    "seoDesc": "Explore banquet, events, kitchen, dance hall, bar, and menu photos from Luxury Durbar — Kathmandu's venue for parties, birthdays, and Bratabandha ceremonies.",
+    "marqueeLabel": "Scrolling photo gallery",
+    "banner": {
+      "title": "Event Gallery",
+      "subtitle": "Take a glimpse into past celebrations held at our venue."
+    },
+    "sections": {
+      "events": {
+        "eyebrow": "Celebrations",
+        "title": "Events"
+      },
+      "banquet": {
+        "eyebrow": "Dining rooms",
+        "title": "Banquet Photos"
+      },
+      "kitchen": {
+        "eyebrow": "Culinary",
+        "title": "Kitchen Photos"
+      },
+      "danceHall": {
+        "eyebrow": "The floor",
+        "title": "Dance Hall Photos"
+      },
+      "bar": {
+        "eyebrow": "Drinks & lounge",
+        "title": "Bar Photos"
+      },
+      "washroom": {
+        "eyebrow": "Guest comfort",
+        "title": "Washroom Photos"
+      },
+      "menu": {
+        "eyebrow": "On the plate",
+        "title": "Menu Photos"
+      }
+    },
+    "spotlight": {
+      "title": "Client Spotlight",
+      "story": "A Regal Evening: Sonal & Vikram's Wedding",
+      "details": "400 Guests {'|'} Royal Durbar Hall {'|'} Traditional & Modern Fusion Decor",
+      "body": "From the grand entryway to the dance floor, every detail was tailored for a night guests still talk about."
+    },
+    "items": {
+      "events1": "Grand wedding reception",
+      "events2": "Outdoor celebration setup",
+      "events3": "Guests at a banquet table",
+      "events4": "Birthday party décor",
+      "events5": "Evening gala lighting",
+      "events6": "Crowd at a live event",
+      "banquet1": "Formal banquet dining",
+      "banquet2": "Buffet service line",
+      "banquet3": "Restaurant-style banquet hall",
+      "banquet4": "Plated dinner course",
+      "banquet5": "Gourmet food presentation",
+      "banquet6": "Luxury Durbar dining hall",
+      "kitchen1": "Professional kitchen prep",
+      "kitchen2": "Chef plating dishes",
+      "kitchen3": "Commercial kitchen stations",
+      "kitchen4": "Kitchen team at work",
+      "kitchen5": "Fresh ingredients prep",
+      "kitchen6": "Open kitchen service",
+      "dance1": "Dance floor under lights",
+      "dance2": "Live stage performance",
+      "dance3": "Concert-style venue lighting",
+      "dance4": "Luxury Durbar ballroom",
+      "dance5": "Hall event setup",
+      "dance6": "Nightclub-style dance space",
+      "bar1": "Luxury Durbar indoor bar",
+      "bar2": "Lounge and top bar",
+      "bar3": "Cocktail bar counter",
+      "bar4": "Craft cocktails",
+      "bar5": "Signature drinks",
+      "bar6": "Bar seating lounge",
+      "washroom1": "Guest washroom amenities",
+      "washroom2": "Bridal suite wash area",
+      "washroom3": "Modern restroom interior",
+      "washroom4": "Luxury bathroom finishes",
+      "washroom5": "Spa-style washroom",
+      "washroom6": "Premium vanity area",
+      "menu1": "Fresh plated salad",
+      "menu2": "Signature pancake stack",
+      "menu3": "Wood-fired pizza",
+      "menu4": "Gourmet entrée plate",
+      "menu5": "Chef special dish",
+      "menu6": "Grilled menu highlights"
+    }
+  },
+  "about": {
+    "seoTitle": "About Us — Luxury Durbar",
+    "seoDesc": "Hospitality, detail, and coordination — the principles behind Luxury Durbar.",
+    "eyebrow": "Our story",
+    "statement": "We do not host parties. We stage lifetime stories — one table, one toast, one golden night at a time.",
+    "intro": "Luxury Durbar was built as a destination for celebrations that deserve a grand stage — weddings that linger in memory, receptions that sparkle, and gatherings where every table holds good gossip.",
+    "principles": {
+      "title": "What we stand for",
+      "hospitality": {
+        "title": "Hospitality",
+        "text": "Every guest is welcomed as family. Warm service is the foundation of an unforgettable night."
+      },
+      "detail": {
+        "title": "Excellence in the Details",
+        "text": "A single light cue, a single course timing — outcomes are decided by the details, and we treat none of them as unimportant."
+      },
+      "coordination": {
+        "title": "Seamless Coordination",
+        "text": "From first inquiry to the final toast, a dedicated team keeps your celebration on time and on brand."
+      }
+    },
+    "cta": "Plan Your Event"
+  },
+  "contact": {
+    "seoTitle": "Book a Tour — Luxury Durbar",
+    "seoDesc": "Visit us in person or request an instant date check at Luxury Durbar.",
+    "banner": {
+      "title": "Let's Talk About Your Event",
+      "subtitle": "Visit us in person or request an instant date check."
+    },
+    "form": {
+      "fullName": "Full Name",
+      "email": "Email Address",
+      "phone": "Phone Number",
+      "eventType": "Event Type",
+      "hall": "Preferred Hall",
+      "hallAny": "Any / Not sure yet",
+      "date": "Preferred Event Date",
+      "guests": "Estimated Guest Count",
+      "guestOptions": {
+        "under100": "Under 100",
+        "100to300": "100–300",
+        "300to500": "300–500",
+        "500plus": "500+"
+      },
+      "notes": "Additional Notes / Requirements",
+      "packageNote": "Interested package: {name}",
+      "submit": "Check Date & Request Quote",
+      "submitting": "Submitting…",
+      "success": "Request received! Check your email for confirmation. Our team will follow up soon.",
+      "checkAvail": "Check availability",
+      "availOk": "Your preferred date looks open for the selected hall (pending requests may still exist).",
+      "availBusy": "This date appears busy — you can still submit and staff will advise alternatives."
+    },
+    "info": {
+      "title": "Venue Contact",
+      "addressLabel": "Address",
+      "address": "Kathmandu Valley, Nepal",
+      "phoneLabel": "Phone",
+      "phone": "+977-1-0000000",
+      "whatsapp": "WhatsApp Inquiry: +977-1-0000000",
+      "emailLabel": "Email",
+      "email": "events{'@'}luxurydurbar.local",
+      "hoursLabel": "Visiting Hours",
+      "hours": "Tuesday – Sunday, 10:00 AM – 7:00 PM (Mondays by appointment)"
+    },
+    "eventTypes": {
+      "wedding": "Wedding",
+      "reception": "Reception",
+      "birthday": "Birthday",
+      "corporate": "Corporate",
+      "engagement": "Engagement",
+      "other": "Other"
+    }
+  }
+}

@@ -1,8 +1,15 @@
+@import 'lenis/dist/lenis.css';
+@import './animations.css';
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
 :root {
   --gold: #c9a227;
   --gold-light: #e8d48b;
-  --ink: #0c0a09;
-  --cream: #faf7f2;
+  --ink: #0a0a0a;
+  --white: #ffffff;
 }
 
 html {
@@ -10,88 +17,92 @@ html {
 }
 
 body {
-  background: #0c0a09;
-  color: #f5f5f4;
-  -webkit-font-smoothing: antialiased;
-  font-family: Georgia, 'Times New Roman', serif;
+  @apply bg-ink text-white antialiased font-serif;
 }
 
-.font-sans-ui {
-  font-family: system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
-}
-
-.btn-gold {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  border-radius: 2px;
-  background: #c9a227;
-  padding: 0.75rem 1.5rem;
-  font-size: 0.875rem;
-  font-weight: 600;
-  text-transform: uppercase;
-  letter-spacing: 0.08em;
-  color: #0c0a09;
-  transition: background 0.2s;
-  font-family: system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
-}
-.btn-gold:hover {
-  background: #e8d48b;
-}
-
-.btn-outline {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  border-radius: 2px;
-  border: 1px solid rgba(201, 162, 39, 0.6);
-  padding: 0.75rem 1.5rem;
-  font-size: 0.875rem;
-  font-weight: 600;
-  text-transform: uppercase;
-  letter-spacing: 0.08em;
-  color: #e8d48b;
-  transition: background 0.2s;
-  font-family: system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
-}
-.btn-outline:hover {
-  background: rgba(201, 162, 39, 0.1);
-}
-
-.section {
-  margin-left: auto;
-  margin-right: auto;
-  max-width: 72rem;
-  padding: 4rem 1rem;
-}
-
-@media (min-width: 640px) {
-  .section {
-    padding-left: 1.5rem;
-    padding-right: 1.5rem;
+@layer components {
+  .font-sans-ui {
+    @apply font-sans;
   }
-}
 
-.input {
-  width: 100%;
-  border-radius: 2px;
-  border: 1px solid #44403c;
-  background: #1c1917;
-  padding: 0.75rem 1rem;
-  color: #f5f5f4;
-  outline: none;
-  font-family: system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
-}
-.input:focus {
-  border-color: #c9a227;
-}
+  .btn-gold {
+    @apply inline-flex items-center justify-center rounded-sm bg-gold px-6 py-3 text-sm font-semibold uppercase tracking-wider text-ink transition font-sans;
+  }
+  .btn-gold:hover {
+    @apply bg-gold-light;
+  }
 
-.label {
-  display: block;
-  margin-bottom: 0.25rem;
-  font-size: 0.875rem;
-  color: #a8a29e;
-  font-family: system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
+  .btn-outline {
+    @apply inline-flex items-center justify-center rounded-sm border border-gold/60 px-6 py-3 text-sm font-semibold uppercase tracking-wider text-gold-light transition font-sans;
+  }
+  .btn-outline:hover {
+    @apply bg-gold/10;
+  }
+
+  .section {
+    @apply mx-auto max-w-[80rem] px-4 py-16 sm:px-6 lg:px-8;
+  }
+
+  .eyebrow {
+    @apply font-sans text-xs uppercase tracking-label text-gold;
+  }
+
+  .input {
+    @apply w-full rounded-sm border border-white/20 bg-white/5 px-4 py-3 text-white outline-none font-sans;
+  }
+  .input:focus {
+    @apply border-gold;
+  }
+
+  .label {
+    @apply mb-1 block text-sm text-white/60 font-sans;
+  }
+
+  .page-banner {
+    @apply relative overflow-hidden border-b border-white/10;
+  }
+
+  .page-banner__inner {
+    @apply relative section !py-20 sm:!py-28;
+  }
+
+  .nav-link {
+    @apply relative inline-block transition duration-300;
+    transform: translateY(0);
+  }
+
+  .nav-link::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    bottom: -0.35rem;
+    height: 1px;
+    width: 0;
+    background: var(--gold);
+    transition: width 0.35s cubic-bezier(0.22, 1, 0.36, 1);
+  }
+
+  .nav-link:hover {
+    @apply text-gold-light;
+    transform: translateY(-2px);
+  }
+
+  .nav-link:hover::after,
+  .nav-link--active::after {
+    width: 100%;
+  }
+
+  .nav-link--active {
+    @apply text-gold-light;
+  }
+
+  .nav-link--mobile::after {
+    display: none;
+  }
+
+  .nav-link--mobile:hover {
+    transform: none;
+  }
 }
 
 a {
