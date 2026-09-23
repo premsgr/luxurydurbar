@@ -12,7 +12,10 @@
     "contact": "Contact Us",
     "bookTour": "Book a Tour",
     "menu": "Menu",
-    "close": "Close"
+    "close": "Close",
+    "language": "Language",
+    "langEn": "English",
+    "langNe": "Nepali"
   },
   "footer": {
     "blurb": "A grand banquet destination for weddings, receptions, and unforgettable celebrations in Kathmandu Valley.",
@@ -294,11 +297,15 @@
     }
   },
   "packages": {
-    "seoTitle": "Packages & Pricing — Luxury Durbar",
-    "seoDesc": "Transparent event packages for stress-free celebrations at Luxury Durbar.",
+    "seoTitle": "Packages & Pricing — Luxury Durbar Kathmandu",
+    "seoDesc": "Gold, Diamond, and Platinum celebration packages plus corporate seminars, galas, dry-hire, and off-peak options at Luxury Durbar, Kathmandu.",
     "banner": {
       "title": "Transparent Event Packages",
       "subtitle": "Everything you need for a stress-free celebration, bundled for maximum value."
+    },
+    "tiers": {
+      "eyebrow": "Celebration packages",
+      "title": "Gold, Diamond & Platinum"
     },
     "gold": {
       "name": "Gold Package",
@@ -312,6 +319,19 @@
       ],
       "cta": "Request Gold Pricing"
     },
+    "diamond": {
+      "name": "Diamond Package",
+      "tagline": "Elevated Celebrations",
+      "items": [
+        "10-Hour Hall Access",
+        "4-Course Buffet with Live Counter Option",
+        "Upgraded Floral Decor & Ambient Lighting",
+        "HD Screen / Projector + Full Sound Rig",
+        "On-Site Event Coordinator",
+        "Bridal Suite + Guest Lounge Access"
+      ],
+      "cta": "Request Diamond Pricing"
+    },
     "platinum": {
       "name": "Platinum Package",
       "tagline": "All-Inclusive Luxury",
@@ -324,14 +344,113 @@
       ],
       "cta": "Request Platinum Pricing"
     },
+    "corporate": {
+      "eyebrow": "For companies & brands",
+      "title": "Dedicated Corporate & Business Packages",
+      "intro": "Designed specifically for companies, brands, and professional organizations needing reliable tech, smooth logistics, and tailored dining options.",
+      "seminar": {
+        "name": "Executive Seminar Package",
+        "subtitle": "Half-Day / Full-Day Meetings",
+        "ideal": "Ideal for workshops, training sessions, and board meetings.",
+        "items": [
+          "Flexible Layout (Theater / Classroom / U-Shape)",
+          "High-Definition LED Screen / Projector & Clicker",
+          "High-Speed Guest Wi-Fi",
+          "Morning & Afternoon Tea/Coffee Breaks with Snacks",
+          "Executive Plated Lunch"
+        ],
+        "cta": "Book Corporate Seminar"
+      },
+      "gala": {
+        "name": "Corporate Gala & Launch",
+        "subtitle": "Award Nights & Product Launch",
+        "ideal": "Ideal for annual galas, product launches, and corporate dinners.",
+        "items": [
+          "Evening Hall Access (6 Hours)",
+          "Multi-Cuisine Dinner Buffet",
+          "Professional Stage & Rigging",
+          "Podium + Podium Branding Space",
+          "Full AV, Lighting & Sound Tech",
+          "Registration & Welcome Counter",
+          "Valet Parking for Guests"
+        ],
+        "cta": "Request Gala Quote"
+      }
+    },
+    "special": {
+      "eyebrow": "Beyond the template",
+      "title": "Specialized Event Tiers",
+      "intro": "For hosts who do not fit standard wedding or conference packages — flexible space hire and daytime value options.",
+      "dryhire": {
+        "name": "Micro-Event / Dry-Hire Package",
+        "bestFor": "Best for hosts who prefer their own decorators, caterers, or event planners.",
+        "items": [
+          "Hall space rental by the hour (minimum 4 hours)",
+          "In-house tables, chairs, and standard house lighting",
+          "Security staff and cleanup crew included"
+        ],
+        "cta": "Request Dry-Hire Quote"
+      },
+      "offpeak": {
+        "name": "Daytime / Off-Peak Special",
+        "bestFor": "Best for morning events, weekday seminars (Monday–Thursday), or daytime tea parties.",
+        "items": [
+          "Discounted venue rental rate",
+          "Standard light meal / brunch buffet options",
+          "Complimentary welcome drink upgrade"
+        ],
+        "cta": "Request Off-Peak Quote"
+      }
+    },
     "addons": {
-      "title": "À La Carte & Add-On Services",
-      "items": [
-        "Customized Stage & Theme Decoration",
-        "Live Food Counters & Mocktail/Cocktail Bars",
-        "Drone Photography & Videography Coverage",
-        "LED Screen Walls & Custom Lighting Rigging"
-      ]
+      "eyebrow": "Build your night",
+      "title": "Add-Ons & Customizations",
+      "intro": "Select extras on top of your base plan — we will include them in your custom quote.",
+      "cta": "Request Custom Quote",
+      "groups": {
+        "av": {
+          "title": "Technology & AV",
+          "items": [
+            { "key": "led-wall", "label": "LED Video Wall (8x12 ft)" },
+            { "key": "lapel-mics", "label": "Wireless Lapel Mics" },
+            { "key": "livestream", "label": "Live Streaming Setup" }
+          ]
+        },
+        "entertainment": {
+          "title": "Entertainment",
+          "items": [
+            { "key": "dj-rig", "label": "In-House DJ & Sound Rig" },
+            { "key": "dance-floor", "label": "Dance Floor Setup" },
+            { "key": "acoustic-band", "label": "Live Acoustic Band Stage" }
+          ]
+        },
+        "food": {
+          "title": "Food & Beverage",
+          "items": [
+            { "key": "live-stalls", "label": "Live Food Stalls (Chaat, Pasta, BBQ)" },
+            { "key": "cocktail-bar", "label": "Mocktail/Cocktail Bar Setup" },
+            { "key": "dessert-station", "label": "Dessert Station" }
+          ]
+        },
+        "decor": {
+          "title": "Decor & Ambiance",
+          "items": [
+            { "key": "entrance-arch", "label": "Custom Entrance Arch" },
+            { "key": "fairy-canopy", "label": "Fairy Light Canopy" },
+            { "key": "pyro-fog", "label": "Cold Pyro & Fog Machine Effects" }
+          ]
+        }
+      }
+    },
+    "packageNames": {
+      "gold": "Gold Package",
+      "diamond": "Diamond Package",
+      "platinum": "Platinum Package",
+      "seminar": "Executive Seminar Package",
+      "gala": "Corporate Gala & Launch",
+      "dryhire": "Micro-Event / Dry-Hire Package",
+      "offpeak": "Daytime / Off-Peak Special",
+      "custom": "Custom Package"
     }
   },
   "gallery": {
@@ -470,6 +589,7 @@
       },
       "notes": "Additional Notes / Requirements",
       "packageNote": "Interested package: {name}",
+      "addonsNote": "Selected add-ons: {list}",
       "submit": "Check Date & Request Quote",
       "submitting": "Submitting…",
       "success": "Request received! Check your email for confirmation. Our team will follow up soon.",

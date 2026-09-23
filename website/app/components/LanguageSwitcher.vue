@@ -1,18 +1,42 @@
 <template>
-  <div class="inline-flex items-center rounded-sm border border-white/20 overflow-hidden font-sans text-xs uppercase tracking-wider">
+  <div
+    class="lang-switch inline-flex items-center rounded-sm border border-white/20 overflow-hidden"
+    role="group"
+    :aria-label="t('nav.language')"
+  >
     <NuxtLink
       :to="switchLocalePath('en')"
-      class="px-2.5 py-1.5 transition"
-      :class="locale === 'en' ? 'bg-gold text-ink' : 'text-white/70 hover:text-gold-light'"
+      class="lang-switch__btn"
+      :class="locale === 'en' ? 'is-active' : ''"
+      :aria-label="t('nav.langEn')"
+      :title="t('nav.langEn')"
     >
-      EN
+      <img
+        src="/assets/flags/gb.svg"
+        alt=""
+        class="lang-switch__flag lang-switch__flag--uk"
+        width="22"
+        height="15"
+        aria-hidden="true"
+      >
+      <span class="lang-switch__code hidden sm:inline">EN</span>
     </NuxtLink>
     <NuxtLink
       :to="switchLocalePath('ne')"
-      class="px-2.5 py-1.5 transition"
-      :class="locale === 'ne' ? 'bg-gold text-ink' : 'text-white/70 hover:text-gold-light'"
+      class="lang-switch__btn"
+      :class="locale === 'ne' ? 'is-active' : ''"
+      :aria-label="t('nav.langNe')"
+      :title="t('nav.langNe')"
     >
-      नेपाली
+      <img
+        src="/assets/flags/np.svg"
+        alt=""
+        class="lang-switch__flag lang-switch__flag--np"
+        width="16"
+        height="20"
+        aria-hidden="true"
+      >
+      <span class="lang-switch__code hidden sm:inline">NE</span>
     </NuxtLink>
   </div>
 </template>
@@ -22,7 +46,7 @@ export default { name: 'LanguageSwitcher' }
 </script>
 
 <script setup lang="ts">
-const { locale } = useI18n()
+const { t, locale } = useI18n()
 const switchLocalePath = useSwitchLocalePath()
 
 watch(

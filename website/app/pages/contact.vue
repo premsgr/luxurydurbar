@@ -139,7 +139,7 @@ import { EVENT_TYPES, type AvailabilityResponse, type HallDto } from '@luxurydur
 import { PHOTOS } from '~/utils/photos'
 import { SEO_KEYWORDS } from '~/utils/seo'
 
-const { t } = useI18n()
+const { t, te, tm, rt } = useI18n()
 const { api } = useApi()
 const route = useRoute()
 const config = useRuntimeConfig()
@@ -195,8 +195,33 @@ watchEffect(() => {
 watchEffect(() => {
   const pkg = String(route.query.package || '')
   if (!pkg) return
-  const label = pkg === 'platinum' ? t('packages.platinum.name') : t('packages.gold.name')
+  const nameKey = `packages.packageNames.${pkg}`
+  const label = te(nameKey) ? t(nameKey) : pkg
   const note = t('contact.form.packageNote', { name: label })
+  if (!form.notes.includes(note)) {
+    form.notes = form.notes ? `${form.notes}\n${note}` : note
+  }
+})
+
+watchEffect(() => {
+  const raw = String(route.query.addons || '')
+  if (!raw) return
+  const keys = raw.split(',').map((k) => k.trim()).filter(Boolean)
+  if (!keys.length) return
+
+  const labels = keys.map((key) => {
+    for (const group of ['av', 'entertainment', 'food', 'decor'] as const) {
+      const items = tm(`packages.addons.groups.${group}.items`) as Array<{ key?: string; label?: string }>
+      if (!Array.isArray(items)) continue
+      const match = items.find((item) => item?.key === key)
+      if (match) {
+        return typeof match.label === 'string' ? match.label : rt(match.label as never)
+      }
+    }
+    return key
+  })
+
+  const note = t('contact.form.addonsNote', { list: labels.join(', ') })
   if (!form.notes.includes(note)) {
     form.notes = form.notes ? `${form.notes}\n${note}` : note
   }

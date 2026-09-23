@@ -1,18 +1,18 @@
 <template>
   <div class="min-h-screen flex flex-col bg-ink text-white">
     <header class="sticky top-0 z-50 border-b border-white/10 bg-ink/95 backdrop-blur">
-      <div class="mx-auto flex max-w-[90rem] items-center justify-between gap-6 px-4 py-5 sm:px-6 lg:px-8">
-        <NuxtLinkLocale to="/" class="group flex items-center gap-4 min-w-0">
+      <div class="mx-auto flex max-w-[90rem] items-center justify-between gap-3 px-4 py-3 sm:gap-6 sm:px-6 sm:py-5 lg:px-8">
+        <NuxtLinkLocale to="/" class="group flex items-center gap-2.5 sm:gap-4 min-w-0">
           <img
             :src="PHOTOS.logo"
             alt="Luxury Durbar"
-            class="h-16 w-16 sm:h-[4.5rem] sm:w-[4.5rem] rounded-sm object-cover border border-gold/40"
+            class="h-10 w-10 sm:h-16 sm:w-16 lg:h-[4.5rem] lg:w-[4.5rem] rounded-sm object-cover border border-gold/40 shrink-0"
           />
           <div class="min-w-0 shrink">
-            <div class="text-xl tracking-brand uppercase text-gold-light sm:text-2xl whitespace-nowrap">
+            <div class="text-sm tracking-brand uppercase text-gold-light sm:text-xl lg:text-2xl whitespace-nowrap">
               {{ t('brand.name') }}
             </div>
-            <div class="font-sans text-[11px] uppercase tracking-label text-white/40 sm:text-xs whitespace-nowrap">
+            <div class="font-sans text-[9px] uppercase tracking-label text-white/40 sm:text-[11px] lg:text-xs whitespace-nowrap">
               {{ t('brand.tagline') }}
             </div>
           </div>
@@ -34,14 +34,20 @@
           <LanguageSwitcher />
         </nav>
 
-        <div class="flex items-center gap-3 xl:hidden">
+        <div class="flex items-center gap-2 sm:gap-3 xl:hidden">
           <LanguageSwitcher />
           <button
             type="button"
-            class="font-sans text-base uppercase tracking-wider text-gold-light"
+            class="header-menu-btn"
+            :aria-expanded="open"
+            :aria-label="open ? t('nav.close') : t('nav.menu')"
             @click="open = !open"
           >
-            {{ open ? t('nav.close') : t('nav.menu') }}
+            <span class="header-menu-btn__icon" :class="{ 'is-open': open }" aria-hidden="true">
+              <span />
+              <span />
+              <span />
+            </span>
           </button>
         </div>
       </div>
