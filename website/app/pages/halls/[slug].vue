@@ -4,7 +4,7 @@
     {{ t('halls.detail.notFound') }}
   </div>
   <div v-else>
-    <section class="relative h-[55vh] min-h-[320px]">
+    <section class="hero-flush relative h-[55vh] min-h-[320px]">
       <img
         :src="photos[0]"
         :alt="hall.name"

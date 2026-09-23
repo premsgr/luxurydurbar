@@ -28,7 +28,16 @@
     "ctaSub": "मनपर्ने मिति भरिनु अघि सुरक्षित गर्नुहोस्।",
     "ctaButton": "अनुकूलित मूल्य अनुरोध गर्नुहोस्",
     "rights": "© {year} Luxury Durbar। सर्वाधिकार सुरक्षित।",
-    "hours": "मङ्गल–आइत, बिहान १०:०० – साँझ ७:००"
+    "hours": "मङ्गल–आइत, बिहान १०:०० – साँझ ७:००",
+    "follow": "हामीलाई फलो गर्नुहोस्",
+    "social": {
+      "facebook": "Facebook",
+      "instagram": "Instagram",
+      "twitter": "X (Twitter)",
+      "tiktok": "TikTok",
+      "whatsapp": "WhatsApp",
+      "gmail": "Gmail"
+    }
   },
   "common": {
     "loading": "लोड हुँदै…",

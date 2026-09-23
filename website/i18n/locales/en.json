@@ -28,7 +28,16 @@
     "ctaSub": "Lock in your preferred date before it fills up.",
     "ctaButton": "Request a Custom Quote",
     "rights": "© {year} Luxury Durbar. All rights reserved.",
-    "hours": "Tue–Sun, 10:00 AM – 7:00 PM"
+    "hours": "Tue–Sun, 10:00 AM – 7:00 PM",
+    "follow": "Follow us",
+    "social": {
+      "facebook": "Facebook",
+      "instagram": "Instagram",
+      "twitter": "X (Twitter)",
+      "tiktok": "TikTok",
+      "whatsapp": "WhatsApp",
+      "gmail": "Gmail"
+    }
   },
   "common": {
     "loading": "Loading…",

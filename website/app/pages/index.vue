@@ -1,6 +1,6 @@
 <template>
   <div>
-    <section class="relative min-h-[85vh] flex items-center overflow-hidden">
+    <section class="hero-flush hero-flush--full relative flex items-center overflow-hidden">
       <div class="hero-bg absolute inset-0" aria-hidden="true">
         <img
           v-for="(src, i) in heroImages"
@@ -12,7 +12,7 @@
         />
       </div>
       <div class="absolute inset-0 bg-gradient-to-r from-ink/70 via-ink/40 to-ink/10" />
-      <div class="relative section !py-28">
+      <div class="relative section !py-20 sm:!py-28">
         <p class="eyebrow hero-fade-in mb-4">{{ t('home.eyebrow') }}</p>
         <h1 class="hero-fade-in hero-fade-in--delay-1 max-w-3xl text-4xl sm:text-6xl lg:text-7xl leading-tight text-white tracking-wide">
           {{ t('home.headline') }}
@@ -103,13 +103,13 @@
       <Reveal>
         <p class="eyebrow">{{ t('home.highlights.title') }}</p>
       </Reveal>
-      <div class="mt-10 grid gap-8 sm:grid-cols-2 lg:grid-cols-4">
+      <div class="mt-10 grid gap-8 sm:grid-cols-2 lg:grid-cols-4 highlight-grid">
         <Reveal
           v-for="(key, i) in highlightKeys"
           :key="key"
           :delay="i * 80"
         >
-          <div class="border border-white/10 bg-white/[0.03] p-6 h-full">
+          <div class="highlight-card border border-white/10 bg-white/[0.03] p-6 h-full">
             <div class="text-gold text-xl mb-3">◆</div>
             <h3 class="text-xl text-gold-light">{{ t(`home.highlights.${key}.title`) }}</h3>
             <p class="mt-3 font-sans text-sm text-white/60 leading-relaxed">
@@ -117,6 +117,56 @@
             </p>
           </div>
         </Reveal>
+      </div>
+    </section>
+
+    <section id="about" class="border-t border-white/10 bg-white/[0.02]">
+      <div class="section">
+        <Reveal>
+          <p class="eyebrow">{{ t('about.eyebrow') }}</p>
+          <h2 class="mt-2 max-w-3xl text-3xl sm:text-4xl text-white tracking-wide">
+            {{ t('about.statement') }}
+          </h2>
+          <p class="mt-6 max-w-3xl font-sans text-lg text-white/70 leading-relaxed">
+            {{ t('about.intro') }}
+          </p>
+        </Reveal>
+
+        <Reveal :delay="80">
+          <h3 class="mt-14 text-2xl sm:text-3xl text-white tracking-wide">
+            {{ t('about.principles.title') }}
+          </h3>
+        </Reveal>
+        <div class="mt-10 grid gap-10 md:grid-cols-3">
+          <Reveal
+            v-for="(key, i) in principleKeys"
+            :key="key"
+            :delay="i * 100"
+          >
+            <div>
+              <h4 class="text-xl text-gold-light">{{ t(`about.principles.${key}.title`) }}</h4>
+              <p class="mt-4 font-sans text-sm text-white/60 leading-relaxed">
+                {{ t(`about.principles.${key}.text`) }}
+              </p>
+            </div>
+          </Reveal>
+        </div>
+
+        <div class="mt-14 grid gap-10 md:grid-cols-2 items-center">
+          <Reveal>
+            <img
+              :src="PHOTOS.hall"
+              alt="Luxury Durbar hall"
+              class="w-full aspect-[4/3] object-cover border border-white/10"
+              loading="lazy"
+            />
+          </Reveal>
+          <Reveal :delay="120">
+            <div>
+              <NuxtLinkLocale to="/contact" class="btn-gold">{{ t('about.cta') }}</NuxtLinkLocale>
+            </div>
+          </Reveal>
+        </div>
       </div>
     </section>
 
@@ -270,6 +320,7 @@ const heroIndex = ref(0)
 
 const storyKeys: StoryChapterKey[] = ['lifetime', 'gossip', 'toast', 'business', 'gold']
 const highlightKeys = ['flexible', 'catering', 'support', 'location'] as const
+const principleKeys = ['hospitality', 'detail', 'coordination'] as const
 const venueTabs = ['all', 'weddings', 'corporate', 'social'] as const
 const activeTab = ref<(typeof venueTabs)[number]>('all')
 
