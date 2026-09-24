@@ -1,0 +1,16 @@
+.git
+**/.git
+**/node_modules
+**/dist
+**/.output
+**/.nuxt
+**/.nitro
+**/.data
+**/.cache
+**/*.log
+**/.env
+**/.env.*
+!**/.env.example
+**/*.tsbuildinfo
+.turbo
+coverage

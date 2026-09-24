@@ -11,7 +11,7 @@
           :class="{ 'hero-bg__img--active': heroIndex === i }"
         />
       </div>
-      <div class="absolute inset-0 bg-gradient-to-r from-ink/70 via-ink/40 to-ink/10" />
+      <div class="absolute inset-0 bg-gradient-to-r from-ink/85 via-ink/55 to-ink/25" />
       <div class="relative section !py-20 sm:!py-28">
         <p class="eyebrow hero-fade-in mb-4">{{ t('home.eyebrow') }}</p>
         <h1 class="hero-fade-in hero-fade-in--delay-1 max-w-3xl text-4xl sm:text-6xl lg:text-7xl leading-tight text-white tracking-wide">

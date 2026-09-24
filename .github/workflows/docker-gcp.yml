@@ -1,0 +1,90 @@
+name: Docker GCP
+
+on:
+  release:
+    types: [published]
+  pull_request:
+    paths:
+      - website/**
+      - packages/**
+      - package.json
+      - pnpm-lock.yaml
+      - pnpm-workspace.yaml
+      - .npmrc
+      - .github/variables/common.env
+      - .github/workflows/docker-gcp.yml
+  workflow_dispatch:
+    inputs:
+      version:
+        description: Image version tag (e.g. 0.1.2)
+        required: false
+        type: string
+
+permissions:
+  contents: read
+  id-token: write
+
+concurrency:
+  group: docker-gcp-${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  docker:
+    name: Build website image
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Load common variables
+        run: cat .github/variables/common.env >> "$GITHUB_ENV"
+
+      - name: Resolve version tag
+        id: version
+        run: |
+          if [ "${{ github.event_name }}" = "release" ]; then
+            version="${{ github.event.release.tag_name }}"
+            version="${version#v}"
+          elif [ -n "${{ inputs.version }}" ]; then
+            version="${{ inputs.version }}"
+          else
+            version="${GITHUB_SHA::12}"
+          fi
+          echo "version=${version}" >> "$GITHUB_OUTPUT"
+
+      - name: Authenticate to Google Cloud
+        if: github.event_name == 'release'
+        uses: google-github-actions/auth@v2
+        with:
+          workload_identity_provider: ${{ secrets.GCP_WORKLOAD_IDENTITY_PROVIDER }}
+          service_account: ${{ secrets.GCP_SERVICE_ACCOUNT }}
+
+      - name: Set up Cloud SDK
+        if: github.event_name == 'release'
+        uses: google-github-actions/setup-gcloud@v2
+
+      - name: Configure Docker for Artifact Registry
+        if: github.event_name == 'release'
+        run: gcloud auth configure-docker "${{ env.GCP_ARTIFACT_REGISTRY }}" --quiet
+
+      - name: Set image tags
+        id: image
+        run: |
+          registry="${GCP_ARTIFACT_REGISTRY}/${GCP_PROJECT_ID}/${GCP_PLATFORM_ARTIFACT_REPO}/website"
+          echo "version=${registry}:${{ steps.version.outputs.version }}" >> "$GITHUB_OUTPUT"
+          echo "latest=${registry}:latest" >> "$GITHUB_OUTPUT"
+
+      - name: Build website image
+        run: |
+          docker build \
+            -f website/docker/Dockerfile \
+            --build-arg "NUXT_PUBLIC_API_BASE=${{ vars.NUXT_PUBLIC_API_BASE }}" \
+            --build-arg "NUXT_PUBLIC_SITE_URL=${{ vars.NUXT_PUBLIC_SITE_URL }}" \
+            -t "${{ steps.image.outputs.version }}" \
+            .
+
+      - name: Push image
+        if: github.event_name == 'release'
+        run: |
+          docker tag "${{ steps.image.outputs.version }}" "${{ steps.image.outputs.latest }}"
+          docker push "${{ steps.image.outputs.version }}"
+          docker push "${{ steps.image.outputs.latest }}"

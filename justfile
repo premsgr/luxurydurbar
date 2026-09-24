@@ -69,3 +69,22 @@ typecheck:
 
 build:
     pnpm build
+
+# Push the website image. Usage: just push-website 0.1.0 https://api.example.com https://luxurydurbar.example.com
+push-website version nuxt_api_base nuxt_site_url:
+    #!/usr/bin/env bash
+    set -euo pipefail
+    set -a
+    source .github/variables/common.env
+    set +a
+    image="${GCP_ARTIFACT_REGISTRY}/${GCP_PROJECT_ID}/${GCP_PLATFORM_ARTIFACT_REPO}/website"
+    gcloud auth configure-docker "${GCP_ARTIFACT_REGISTRY}" --quiet
+    docker build \
+      -f website/docker/Dockerfile \
+      --build-arg "NUXT_PUBLIC_API_BASE={{nuxt_api_base}}" \
+      --build-arg "NUXT_PUBLIC_SITE_URL={{nuxt_site_url}}" \
+      -t "${image}:{{version}}" \
+      -t "${image}:latest" \
+      .
+    docker push "${image}:{{version}}"
+    docker push "${image}:latest"
