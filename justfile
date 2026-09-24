@@ -70,8 +70,8 @@ typecheck:
 build:
     pnpm build
 
-# Push the website image. Usage: just push-website 0.1.0 https://api.example.com https://luxurydurbar.example.com
-push-website version nuxt_api_base nuxt_site_url:
+# Push the website image. Usage: just push-website 0.1.0
+push-website version:
     #!/usr/bin/env bash
     set -euo pipefail
     set -a
@@ -81,10 +81,31 @@ push-website version nuxt_api_base nuxt_site_url:
     gcloud auth configure-docker "${GCP_ARTIFACT_REGISTRY}" --quiet
     docker build \
       -f website/docker/Dockerfile \
-      --build-arg "NUXT_PUBLIC_API_BASE={{nuxt_api_base}}" \
-      --build-arg "NUXT_PUBLIC_SITE_URL={{nuxt_site_url}}" \
       -t "${image}:{{version}}" \
       -t "${image}:latest" \
       .
     docker push "${image}:{{version}}"
     docker push "${image}:latest"
+
+# Deploy the website image to Cloud Run. Usage: just deploy-website 0.1.0
+deploy-website version:
+    #!/usr/bin/env bash
+    set -euo pipefail
+    set -a
+    source .github/variables/common.env
+    set +a
+    region="${GCP_ARTIFACT_REGISTRY%%-docker.pkg.dev}"
+    image="${GCP_ARTIFACT_REGISTRY}/${GCP_PROJECT_ID}/${GCP_PLATFORM_ARTIFACT_REPO}/website:{{version}}"
+    gcloud run deploy darbar-website \
+      --image="${image}" \
+      --region="${region}" \
+      --project="${GCP_PROJECT_ID}" \
+      --port=8080 \
+      --allow-unauthenticated \
+      --min-instances=0 \
+      --max-instances=1 \
+      --cpu=1 \
+      --memory=512Mi \
+      --cpu-throttling \
+      --no-cpu-boost \
+      --quiet
