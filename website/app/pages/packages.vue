@@ -12,19 +12,20 @@
         <p class="eyebrow">{{ t('packages.tiers.eyebrow') }}</p>
         <h2 class="mt-2 text-3xl sm:text-4xl text-white">{{ t('packages.tiers.title') }}</h2>
       </Reveal>
-      <div class="mt-10 grid gap-8 lg:grid-cols-3">
+      <div class="mt-10 grid gap-8 lg:grid-cols-3 packages-grid highlight-grid">
         <Reveal
           v-for="(pkg, i) in celebrationKeys"
           :key="pkg"
           :delay="i * 100"
         >
           <article
-            class="flex flex-col border border-white/10 bg-white/[0.03] p-8 h-full"
+            class="highlight-card ornament-card flex flex-col border border-white/10 bg-white/[0.03] p-8 h-full"
             :class="{
               'border-gold/40': pkg === 'platinum',
               'border-gold/25': pkg === 'diamond',
             }"
           >
+            <CardOrnament />
             <p class="eyebrow">{{ t(`packages.${pkg}.tagline`) }}</p>
             <h3 class="mt-3 text-3xl text-gold-light">{{ t(`packages.${pkg}.name`) }}</h3>
             <ul class="mt-8 flex-1 space-y-3 font-sans text-white/70">
@@ -54,13 +55,14 @@
             {{ t('packages.corporate.intro') }}
           </p>
         </Reveal>
-        <div class="mt-10 grid gap-8 lg:grid-cols-2">
+        <div class="mt-10 grid gap-8 lg:grid-cols-2 packages-grid highlight-grid">
           <Reveal
             v-for="(key, i) in corporateKeys"
             :key="key"
             :delay="i * 100"
           >
-            <article class="flex flex-col border border-white/10 bg-ink p-8 h-full">
+            <article class="highlight-card ornament-card flex flex-col border border-white/10 bg-ink p-8 h-full">
+              <CardOrnament />
               <h3 class="text-2xl sm:text-3xl text-gold-light">
                 {{ t(`packages.corporate.${key}.name`) }}
               </h3>
@@ -102,13 +104,14 @@
             {{ t('packages.special.intro') }}
           </p>
         </Reveal>
-        <div class="mt-10 grid gap-8 lg:grid-cols-2">
+        <div class="mt-10 grid gap-8 lg:grid-cols-2 packages-grid highlight-grid">
           <Reveal
             v-for="(key, i) in specialKeys"
             :key="key"
             :delay="i * 100"
           >
-            <article class="flex flex-col border border-white/10 bg-white/[0.03] p-8 h-full">
+            <article class="highlight-card ornament-card flex flex-col border border-white/10 bg-white/[0.03] p-8 h-full">
+              <CardOrnament />
               <h3 class="text-2xl sm:text-3xl text-gold-light">
                 {{ t(`packages.special.${key}.name`) }}
               </h3>
@@ -203,19 +206,14 @@ export default { name: 'PackagesPage' }
 
 <script setup lang="ts">
 import { PHOTOS } from '~/utils/photos'
-import { SEO_KEYWORDS } from '~/utils/seo'
 
 const { t, tm, rt } = useI18n()
 const localePath = useLocalePath()
-const config = useRuntimeConfig()
 
-useSeoMeta({
-  title: () => t('packages.seoTitle'),
-  description: () => t('packages.seoDesc'),
-  keywords: SEO_KEYWORDS,
-  ogTitle: () => t('packages.seoTitle'),
-  ogDescription: () => t('packages.seoDesc'),
-  ogImage: () => `${config.public.siteUrl}${PHOTOS.hero}`,
+useSiteSeo({
+  titleKey: 'packages.seoTitle',
+  descriptionKey: 'packages.seoDesc',
+  image: PHOTOS.hero,
 })
 
 type CelebrationKey = 'gold' | 'diamond' | 'platinum'
@@ -248,13 +246,13 @@ function specialItems(key: SpecialKey): string[] {
 }
 
 function addonGroupItems(group: AddonGroup): Array<{ key: string; label: string }> {
-  const raw = tm(`packages.addons.groups.${group}.items` as 'packages.addons.groups.av.items')
+  const raw = tm(`packages.addons.groups.${group}.items`) as unknown
   if (!Array.isArray(raw)) return []
-  return raw.map((item, index) => {
+  return raw.map((item: unknown, index: number) => {
     if (typeof item === 'string') {
       return { key: `${group}-${index}`, label: item }
     }
-    const obj = item as { key?: string; label?: string }
+    const obj = item as { key?: string; label?: unknown }
     const label = typeof obj.label === 'string' ? obj.label : rt(obj.label as never)
     const key = typeof obj.key === 'string' ? obj.key : `${group}-${index}`
     return { key, label }

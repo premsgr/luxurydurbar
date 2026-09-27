@@ -5,9 +5,8 @@
       <nav>
         <RouterLink to="/">Dashboard</RouterLink>
         <RouterLink to="/bookings">Bookings</RouterLink>
-        <RouterLink to="/calendar">Calendar</RouterLink>
-        <RouterLink to="/halls">Halls</RouterLink>
         <RouterLink to="/blocked">Blocked slots</RouterLink>
+        <RouterLink v-if="auth.user?.role === 'admin'" to="/staff">Staff</RouterLink>
       </nav>
       <div style="margin-top: 2rem">
         <p class="muted" style="font-size: 0.85rem; margin: 0 0 0.5rem">

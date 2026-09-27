@@ -148,6 +148,7 @@ const footerPhone = '+977-1-0000000'
 
 const navItems = [
   { to: '/', label: 'nav.home' },
+  { to: '/events', label: 'nav.events' },
   { to: '/halls', label: 'nav.venues' },
   { to: '/packages', label: 'nav.packages' },
   { to: '/gallery', label: 'nav.gallery' },

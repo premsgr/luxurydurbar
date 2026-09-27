@@ -17,28 +17,7 @@
     </div>
 
     <div class="card">
-      <h2 style="margin-top: 0">Today</h2>
-      <p v-if="!data?.todaysEvents.length" class="muted">No events scheduled today.</p>
-      <table v-else class="table">
-        <thead>
-          <tr>
-            <th>Time</th>
-            <th>Hall</th>
-            <th>Customer</th>
-            <th>Status</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr v-for="b in data.todaysEvents" :key="b.id">
-            <td>{{ b.startTime }}–{{ b.endTime }}</td>
-            <td>{{ b.hall?.name }}</td>
-            <td>
-              <RouterLink :to="`/bookings/${b.id}`">{{ b.customerName }}</RouterLink>
-            </td>
-            <td><span class="badge" :class="b.status">{{ b.status }}</span></td>
-          </tr>
-        </tbody>
-      </table>
+      <DashboardCalendar />
     </div>
   </div>
 </template>
@@ -47,6 +26,7 @@
 import { onMounted, ref } from 'vue'
 import type { BookingDto } from '@luxurydurbar/shared'
 import { api } from '../lib/api'
+import DashboardCalendar from '../components/DashboardCalendar.vue'
 
 const data = ref<{ pendingCount: number; todaysEvents: BookingDto[] } | null>(null)
 

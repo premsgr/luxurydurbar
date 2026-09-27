@@ -33,9 +33,13 @@ const router = createRouter({
           name: 'booking-detail',
           component: () => import('../views/BookingDetailView.vue'),
         },
-        { path: 'calendar', name: 'calendar', component: () => import('../views/CalendarView.vue') },
-        { path: 'halls', name: 'halls', component: () => import('../views/HallsView.vue') },
         { path: 'blocked', name: 'blocked', component: () => import('../views/BlockedView.vue') },
+        {
+          path: 'staff',
+          name: 'staff',
+          component: () => import('../views/StaffView.vue'),
+          meta: { admin: true },
+        },
       ],
     },
   ],
@@ -46,6 +50,7 @@ router.beforeEach(async (to) => {
   if (!auth.loaded) await auth.fetchMe()
   if (!to.meta.public && !auth.user) return { name: 'login', query: { redirect: to.fullPath } }
   if (to.name === 'login' && auth.user) return { name: 'dashboard' }
+  if (to.meta.admin && auth.user?.role !== 'admin') return { name: 'dashboard' }
   return true
 })
 

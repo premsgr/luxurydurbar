@@ -3,6 +3,7 @@ import {
   Injectable,
   NotFoundException,
 } from '@nestjs/common';
+import { getVenue } from '@luxurydurbar/shared';
 import { PrismaService } from '../prisma/prisma.service';
 import { formatDateOnly, timeToMinutes, toDateOnly } from '../common/time.util';
 
@@ -12,20 +13,20 @@ export class BlockedSlotsService {
 
   private map(slot: {
     id: string;
-    hallId: string;
+    hallSlug: string;
     date: Date;
     startTime: string;
     endTime: string;
     reason: string | null;
     createdAt: Date;
-    hall?: { id: string; name: string; slug: string };
   }) {
+    const venue = getVenue(slot.hallSlug);
     return {
       id: slot.id,
-      hallId: slot.hallId,
-      hall: slot.hall
-        ? { id: slot.hall.id, name: slot.hall.name, slug: slot.hall.slug }
-        : undefined,
+      hallSlug: slot.hallSlug,
+      hall: venue
+        ? { name: venue.name, slug: venue.slug }
+        : { name: slot.hallSlug, slug: slot.hallSlug },
       date: formatDateOnly(slot.date),
       startTime: slot.startTime,
       endTime: slot.endTime,
@@ -34,17 +35,16 @@ export class BlockedSlotsService {
     };
   }
 
-  async list(hallId?: string) {
+  async list(hallSlug?: string) {
     const slots = await this.prisma.blockedSlot.findMany({
-      where: hallId ? { hallId } : undefined,
-      include: { hall: { select: { id: true, name: true, slug: true } } },
+      where: hallSlug ? { hallSlug } : undefined,
       orderBy: [{ date: 'asc' }, { startTime: 'asc' }],
     });
     return slots.map((s) => this.map(s));
   }
 
   async create(data: {
-    hallId: string;
+    hallSlug: string;
     date: string;
     startTime: string;
     endTime: string;
@@ -53,20 +53,17 @@ export class BlockedSlotsService {
     if (timeToMinutes(data.endTime) <= timeToMinutes(data.startTime)) {
       throw new BadRequestException('endTime must be after startTime');
     }
-    const hall = await this.prisma.hall.findUnique({
-      where: { id: data.hallId },
-    });
-    if (!hall) throw new NotFoundException('Hall not found');
+    const venue = getVenue(data.hallSlug);
+    if (!venue) throw new NotFoundException('Hall not found');
 
     const slot = await this.prisma.blockedSlot.create({
       data: {
-        hallId: data.hallId,
+        hallSlug: venue.slug,
         date: toDateOnly(data.date),
         startTime: data.startTime,
         endTime: data.endTime,
         reason: data.reason,
       },
-      include: { hall: { select: { id: true, name: true, slug: true } } },
     });
     return this.map(slot);
   }

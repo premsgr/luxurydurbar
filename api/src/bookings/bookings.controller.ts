@@ -27,7 +27,7 @@ const TIME_RE = /^([01]\d|2[0-3]):[0-5]\d$/;
 
 class CreateBookingDto {
   @IsString()
-  hallId!: string;
+  hallSlug!: string;
 
   @IsDateString()
   eventDate!: string;
@@ -87,10 +87,16 @@ export class BookingsController {
     return this.bookings.dashboard();
   }
 
-  @Get('calendar')
+  @Get('agenda/month')
   @UseGuards(JwtAuthGuard)
-  calendar(@Query('from') from: string, @Query('to') to: string) {
-    return this.bookings.calendar(from, to);
+  monthAgenda(@Query('from') from: string, @Query('to') to: string) {
+    return this.bookings.monthAgenda(from, to);
+  }
+
+  @Get('agenda/day')
+  @UseGuards(JwtAuthGuard)
+  dayAgenda(@Query('date') date: string) {
+    return this.bookings.dayAgenda(date);
   }
 
   @Get(':id')

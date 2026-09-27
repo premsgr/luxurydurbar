@@ -5,6 +5,7 @@
   },
   "nav": {
     "home": "Home",
+    "events": "Events",
     "venues": "Venues",
     "packages": "Packages",
     "gallery": "Gallery",
@@ -18,9 +19,9 @@
     "langNe": "Nepali"
   },
   "footer": {
-    "blurb": "A grand banquet destination for weddings, receptions, and unforgettable celebrations in Kathmandu Valley.",
+    "blurb": "A grand banquet hall and party palace in Sitapaila, Kathmandu for weddings, Bratabandha, Annaprashan, birthdays, and every celebration.",
     "visit": "Visit",
-    "location": "Kathmandu Valley\nNepal",
+    "location": "Sitapaila, Kathmandu\nNepal",
     "contact": "Contact",
     "phone": "+977-1-0000000",
     "email": "hello{'@'}luxurydurbar.local",
@@ -47,11 +48,11 @@
     "capacity": "Capacity {count} guests"
   },
   "home": {
-    "seoTitle": "Luxury Durbar — Banquet, Events & Bratabandha in Kathmandu",
-    "seoDesc": "Premium banquet hall in Kathmandu, Nepal for weddings, parties, birthday celebrations, and Bratabandha (bartabandha) ceremonies.",
+    "seoTitle": "Luxury Durbar — Banquet Hall & Party Palace in Sitapaila, Kathmandu",
+    "seoDesc": "Premium banquet hall in Sitapaila, Kathmandu for weddings, birthdays, anniversaries, business events, Bratabandha, Annaprashan, and festival celebrations in Nepal.",
     "eyebrow": "A stage for stories",
     "headline": "Every celebration begins like a whisper and ends like a legend",
-    "subhead": "Luxury Durbar is where Kathmandu gathers — for weddings that linger, nights that sparkle, and tables that never run out of stories.",
+    "subhead": "Luxury Durbar in Sitapaila, Kathmandu is where Nepal gathers — for weddings, Bratabandha, Annaprashan, birthdays, business nights, and tables that never run out of stories.",
     "ctaPrimary": "Check Date Availability",
     "ctaSecondary": "Schedule a Venue Tour",
     "story": {
@@ -114,7 +115,7 @@
       },
       "location": {
         "title": "Prime Location",
-        "text": "Convenient access with ample private parking and valet services."
+        "text": "Sitapaila, Kathmandu — convenient access with ample private parking and valet services."
       }
     },
     "venues": {
@@ -153,6 +154,93 @@
       "title": "Ready to write your chapter?",
       "sub": "Lock in your preferred date before it fills up.",
       "button": "Request a Custom Quote"
+    },
+    "eventsTeaser": {
+      "eyebrow": "Every kind of event",
+      "title": "Weddings, Bratabandha, birthdays & more in Sitapaila",
+      "text": "Luxury Durbar hosts marriages, birthdays, anniversaries, business events, Bratabandha, Annaprashan, festival celebrations, and social gatherings — all at our banquet hall in Sitapaila, Kathmandu.",
+      "link": "Explore all events"
+    }
+  },
+  "events": {
+    "seoTitle": "Events in Sitapaila Kathmandu — Banquet & Party Palace | Luxury Durbar",
+    "seoDesc": "Banquet hall and party palace in Sitapaila, Kathmandu for weddings, birthdays, anniversaries, business events, Bratabandha, Annaprashan, and festival celebrations in Nepal.",
+    "banner": {
+      "eyebrow": "Sitapaila, Kathmandu",
+      "title": "Events for Every Occasion",
+      "subtitle": "Luxury Durbar is a banquet hall and party palace in Sitapaila for weddings, Nepali ceremonies, parties, and business gatherings."
+    },
+    "intro": {
+      "eyebrow": "Why hosts choose Sitapaila",
+      "text": "From intimate family rites to grand receptions, Luxury Durbar in Sitapaila, Kathmandu welcomes every kind of event in Nepal — with flexible halls, in-house catering, and full event support."
+    },
+    "types": {
+      "machabu": {
+        "title": "Machabu Byanke & Naamkaran",
+        "timing": "4th–10th Day of Life",
+        "text": "When a child is born, the household is considered ritually impure (Macha Bu). Between the 4th and 10th day, a purification ceremony called Machabu Byanke is performed by a priest. During this time, the Naamkaran (naming ceremony) is conducted, and the child's birth chart (Jatakam) is prepared by an astrologer."
+      },
+      "pasni": {
+        "title": "Macha Janku / Pasni",
+        "timing": "5th–8th Month",
+        "text": "The infant's first solid food transition. It takes place at 5 or 7 months for girls and 6 or 8 months for boys. The baby is dressed in traditional silk attire, offered rice pudding (Kheer) alongside various traditional dishes, and presented with symbolic items (books, money, soil, jewels) to predict their future inclinations."
+      },
+      "childhood": {
+        "title": "Ihi / Kaeta Puja / Bratabandha",
+        "timing": "Ages 5 to 13",
+        "text": "Childhood initiation rituals mark a sacred threshold — for girls through Ihi, and for boys through Kaeta Puja and Bratabandha.",
+        "girlsTitle": "For Girls — Ihi / Bel Bibaha",
+        "girlsText": "Celebrated between ages 5 and 9. The young girl is symbolically married to a Bel fruit (wood apple), representing Lord Suvarna Kumar (a manifestation of Lord Vishnu). Because her first eternal spouse is divine and immortal, a Newar woman is traditionally never considered a widow, even if her human spouse passes away.",
+        "boysTitle": "For Boys — Kaeta Puja / Chudakarma / Bare Chuyegu",
+        "boysText": "Performed between ages 5 and 13 to mark manhood and clan initiation. A male uncle shaves the boy's head except for a topknot (Tupi). The boy dons yellow mendicant robes, temporarily role-playing as an ascetic monk, before being welcomed back by family to embrace his duties as a householder."
+      },
+      "bahra": {
+        "title": "Bahra Chuyegu / Gufa",
+        "timing": "Pre-Puberty (Ages 7–11)",
+        "text": "Before her first menstruation, a girl undergoes 12 days of ritual seclusion in a darkened room, hidden from both sunlight and male family members. Female relatives visit to share wisdom and traditional food. On the 12th day, she is brought out, \"married\" to the Sun God (Surya), and dressed as a bride to celebrate her transformation into womanhood."
+      },
+      "weddings": {
+        "title": "Ihipa / Weddings",
+        "timing": "Adulthood",
+        "text": "Traditional Newar weddings unite two families. A core element is the formal exchange of 10 betel nuts (Lakha) sent from the groom's family to confirm the alliance. The wedding involves elaborate rituals like Honkegu and Chipa Theeke (a ceremony of mutual sharing). Host your reception or marriage banquet in a grand hall built for memorable nights — seating for large guest lists, stage lighting, and dedicated bridal facilities."
+      },
+      "janku": {
+        "title": "Janku / Jyah Janko",
+        "timing": "Ages 77 to 105",
+        "text": "When a Newar individual reaches advanced age, they are elevated to near-divine status through five successive Janku ceremonies. During these events, elders are dressed in royal attire, placed in a wooden chariot (Ratha), and pulled through the town by their children and grandchildren.",
+        "stages": [
+          "Bhimratharohan: 77 years, 7 months, 7 days, 7 hours",
+          "Chandraratharohan: 83 years, 4 months, 4 days (Achieves deified status)",
+          "Devaratharohan: 88 years, 8 months, 8 days",
+          "Divyaratharohan: 99 years, 9 months, 9 days",
+          "Mahadivyaratharohan: 105 years, 8 months, 8 days"
+        ]
+      },
+      "birthdays": {
+        "title": "Birthday Parties",
+        "text": "Celebrate milestone birthdays with custom décor, catering, and dance-floor energy — whether you need an intimate chamber or a full banquet setup."
+      },
+      "anniversaries": {
+        "title": "Anniversaries",
+        "text": "Mark years of love or partnership with an elegant anniversary dinner, family gathering, or sparkling evening party at our Sitapaila venue."
+      },
+      "business": {
+        "title": "Business & Corporate Events",
+        "text": "Product launches, seminars, award nights, and client galas feel polished here — with AV support, flexible layouts, and professional coordination."
+      },
+      "festivals": {
+        "title": "Festival & Cultural Events",
+        "text": "Host Dashain, Tihar, Teej, and other festival gatherings with room for music, feast, and community celebration in Kathmandu."
+      },
+      "other": {
+        "title": "Receptions, Engagements & Social Parties",
+        "text": "Engagement parties, wedding receptions, reunions, farewell nights, and every social gathering in between — if you can celebrate it, we can host it."
+      }
+    },
+    "cta": {
+      "title": "Plan your event in Sitapaila",
+      "sub": "Tell us the date and occasion — we will confirm availability and a custom quote.",
+      "button": "Book a Tour / Request Quote"
     }
   },
   "menu": {
@@ -239,8 +327,8 @@
     }
   },
   "halls": {
-    "seoTitle": "Venues & Halls — Luxury Durbar",
-    "seoDesc": "Modern architecture, flexible layouts, and state-of-the-art amenities at Luxury Durbar.",
+    "seoTitle": "Venues & Halls — Luxury Durbar Sitapaila Kathmandu",
+    "seoDesc": "Banquet halls in Sitapaila, Kathmandu with flexible layouts for weddings, Bratabandha, parties, and business events at Luxury Durbar.",
     "banner": {
       "title": "Our Event Spaces",
       "subtitle": "Modern architecture, flexible layouts, and state-of-the-art amenities."
@@ -265,7 +353,9 @@
       "requestTitle": "Request this hall",
       "requestText": "Check availability and request a venue tour. Our team will confirm shortly.",
       "bookCta": "Inquire About {name}",
-      "notFound": "Hall not found."
+      "notFound": "Hall not found.",
+      "seoTitleSuffix": "Luxury Durbar Sitapaila Kathmandu",
+      "seoFallbackDesc": "Banquet hall at Luxury Durbar in Sitapaila, Kathmandu for weddings, parties, Bratabandha, and every celebration in Nepal."
     },
     "marketing": {
       "royal-durbar-hall": {
@@ -306,8 +396,8 @@
     }
   },
   "packages": {
-    "seoTitle": "Packages & Pricing — Luxury Durbar Kathmandu",
-    "seoDesc": "Gold, Diamond, and Platinum celebration packages plus corporate seminars, galas, dry-hire, and off-peak options at Luxury Durbar, Kathmandu.",
+    "seoTitle": "Packages & Pricing — Luxury Durbar Sitapaila Kathmandu",
+    "seoDesc": "Gold, Diamond, and Platinum celebration packages plus corporate seminars, galas, and off-peak options at Luxury Durbar banquet hall, Sitapaila, Kathmandu.",
     "banner": {
       "title": "Transparent Event Packages",
       "subtitle": "Everything you need for a stress-free celebration, bundled for maximum value."
@@ -463,8 +553,8 @@
     }
   },
   "gallery": {
-    "seoTitle": "Gallery — Luxury Durbar Banquet Kathmandu",
-    "seoDesc": "Explore banquet, events, kitchen, dance hall, bar, and menu photos from Luxury Durbar — Kathmandu's venue for parties, birthdays, and Bratabandha ceremonies.",
+    "seoTitle": "Gallery — Luxury Durbar Banquet Sitapaila Kathmandu",
+    "seoDesc": "Photos from Luxury Durbar in Sitapaila — banquet halls, parties, birthdays, Bratabandha, kitchen, dance floor, and celebrations in Kathmandu.",
     "marqueeLabel": "Scrolling photo gallery",
     "banner": {
       "title": "Event Gallery",
@@ -552,11 +642,11 @@
     }
   },
   "about": {
-    "seoTitle": "About Us — Luxury Durbar",
-    "seoDesc": "Hospitality, detail, and coordination — the principles behind Luxury Durbar.",
+    "seoTitle": "About Us — Luxury Durbar Sitapaila",
+    "seoDesc": "Hospitality, detail, and coordination at Luxury Durbar — a banquet hall in Sitapaila, Kathmandu for every celebration.",
     "eyebrow": "Our story",
     "statement": "We do not host parties. We stage lifetime stories — one table, one toast, one golden night at a time.",
-    "intro": "Luxury Durbar was built as a destination for celebrations that deserve a grand stage — weddings that linger in memory, receptions that sparkle, and gatherings where every table holds good gossip.",
+    "intro": "Luxury Durbar was built in Sitapaila, Kathmandu as a destination for celebrations that deserve a grand stage — weddings, Bratabandha, Annaprashan, birthdays, festival gatherings, and nights where every table holds good gossip.",
     "principles": {
       "title": "What we stand for",
       "hospitality": {
@@ -575,11 +665,11 @@
     "cta": "Plan Your Event"
   },
   "contact": {
-    "seoTitle": "Book a Tour — Luxury Durbar",
-    "seoDesc": "Visit us in person or request an instant date check at Luxury Durbar.",
+    "seoTitle": "Book a Tour — Luxury Durbar Sitapaila Kathmandu",
+    "seoDesc": "Visit Luxury Durbar in Sitapaila, Kathmandu or request a date check for weddings, Bratabandha, Annaprashan, birthdays, and business events.",
     "banner": {
       "title": "Let's Talk About Your Event",
-      "subtitle": "Visit us in person or request an instant date check."
+      "subtitle": "Visit us in Sitapaila or request an instant date check."
     },
     "form": {
       "fullName": "Full Name",
@@ -606,10 +696,39 @@
       "availOk": "Your preferred date looks open for the selected hall (pending requests may still exist).",
       "availBusy": "This date appears busy — you can still submit and staff will advise alternatives."
     },
+    "occupancy": {
+      "eyebrow": "Hall availability",
+      "title": "See which halls are free",
+      "subtitle": "Browse the calendar — green days are open, orange days have bookings. Tap a date for hall and slot details.",
+      "morning": "Morning",
+      "evening": "Evening",
+      "open": "Open",
+      "booked": "Booked — {purpose}",
+      "unavailable": "Unavailable",
+      "loading": "Loading hall availability…",
+      "error": "Could not load availability. You can still submit a request below.",
+      "legendOpen": "Open",
+      "legendBooked": "Booked",
+      "prevMonth": "Previous month",
+      "nextMonth": "Next month",
+      "popupEyebrow": "Day details",
+      "popupTitle": "{date}",
+      "close": "Close",
+      "selectHall": "Use this hall in the form",
+      "weekdays": {
+        "sun": "Sun",
+        "mon": "Mon",
+        "tue": "Tue",
+        "wed": "Wed",
+        "thu": "Thu",
+        "fri": "Fri",
+        "sat": "Sat"
+      }
+    },
     "info": {
       "title": "Venue Contact",
       "addressLabel": "Address",
-      "address": "Kathmandu Valley, Nepal",
+      "address": "Sitapaila, Kathmandu, Nepal",
       "phoneLabel": "Phone",
       "phone": "+977-1-0000000",
       "whatsapp": "WhatsApp Inquiry: +977-1-0000000",
@@ -624,6 +743,10 @@
       "birthday": "Birthday",
       "corporate": "Corporate",
       "engagement": "Engagement",
+      "anniversary": "Anniversary",
+      "bratabandha": "Bratabandha",
+      "annaprashan": "Annaprashan",
+      "festival": "Festival / Cultural",
       "other": "Other"
     }
   }

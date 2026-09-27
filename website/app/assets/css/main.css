@@ -72,6 +72,10 @@ body {
   .input:focus {
     @apply border-gold;
   }
+  select.input option {
+    color: #0a0a0a;
+    background-color: #ffffff;
+  }
 
   .label {
     @apply mb-1 block text-sm text-white/60 font-sans;
@@ -79,6 +83,8 @@ body {
 
   .page-banner {
     @apply relative overflow-hidden border-b border-white/10;
+    /* Pull under the fixed transparent header — same flush treatment as the home hero */
+    margin-top: calc(-1 * var(--site-header-h));
   }
 
   .page-banner__inner {

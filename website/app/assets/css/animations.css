@@ -434,6 +434,236 @@
   box-shadow: 0 24px 60px rgba(0, 0, 0, 0.65);
 }
 
+/* Pinterest-style masonry: height follows content */
+.events-grid {
+  column-count: 1;
+  column-gap: 2rem;
+}
+
+@media (min-width: 640px) {
+  .events-grid {
+    column-count: 2;
+  }
+}
+
+@media (min-width: 1024px) {
+  .events-grid {
+    column-count: 3;
+  }
+}
+
+.events-grid > .reveal {
+  display: inline-block;
+  width: 100%;
+  margin-bottom: 2rem;
+  break-inside: avoid;
+  -webkit-column-break-inside: avoid;
+  page-break-inside: avoid;
+}
+
+.ornament-card {
+  position: relative;
+  overflow: visible;
+}
+
+.ornament-card__ornament {
+  position: absolute;
+  top: 0.35rem;
+  right: 0.4rem;
+  width: 4.25rem;
+  height: 5.1rem;
+  color: var(--gold);
+  opacity: 0.62;
+  pointer-events: none;
+  z-index: 0;
+  transition: opacity 0.4s ease, color 0.4s ease, filter 0.4s ease;
+  overflow: visible;
+  filter: drop-shadow(0 0 6px rgba(201, 162, 39, 0.15));
+}
+
+.ornament-card__line {
+  stroke-dasharray: 1;
+  stroke-dashoffset: 0;
+  transform-box: fill-box;
+  transform-origin: center;
+  transition:
+    stroke-dashoffset 0.35s ease,
+    opacity 0.35s ease;
+}
+
+.ornament-card > :not(.ornament-card__ornament) {
+  position: relative;
+  z-index: 1;
+}
+
+.ornament-card h2,
+.ornament-card h3 {
+  padding-right: 3.5rem;
+}
+
+.ornament-card:hover .ornament-card__ornament,
+.ornament-card:focus-within .ornament-card__ornament {
+  opacity: 0.95;
+  color: var(--gold-light);
+  filter: drop-shadow(0 0 10px rgba(232, 212, 139, 0.35));
+}
+
+/* Staggered “random” line traces + sway on hover */
+.ornament-card:hover .ornament-card__line:nth-child(1),
+.ornament-card:focus-within .ornament-card__line:nth-child(1) {
+  animation:
+    palace-line-trace 1.65s ease-in-out 0.05s infinite,
+    palace-line-sway 2.4s ease-in-out 0.1s infinite;
+}
+
+.ornament-card:hover .ornament-card__line:nth-child(2),
+.ornament-card:focus-within .ornament-card__line:nth-child(2) {
+  animation:
+    palace-line-trace 1.15s ease-in-out 0.28s infinite,
+    palace-line-sway 1.9s ease-in-out 0.4s infinite reverse;
+}
+
+.ornament-card:hover .ornament-card__line:nth-child(3),
+.ornament-card:focus-within .ornament-card__line:nth-child(3) {
+  animation:
+    palace-line-trace 1.85s ease-in-out 0.12s infinite,
+    palace-line-sway 2.7s ease-in-out 0s infinite;
+}
+
+.ornament-card:hover .ornament-card__line:nth-child(4),
+.ornament-card:focus-within .ornament-card__line:nth-child(4) {
+  animation:
+    palace-line-trace 1.05s ease-in-out 0.42s infinite,
+    palace-line-sway 2.1s ease-in-out 0.22s infinite reverse;
+}
+
+.ornament-card:hover .ornament-card__line:nth-child(5),
+.ornament-card:focus-within .ornament-card__line:nth-child(5) {
+  animation:
+    palace-line-trace 1.55s ease-in-out 0.18s infinite,
+    palace-line-sway 2.55s ease-in-out 0.35s infinite;
+}
+
+.ornament-card:hover .ornament-card__line:nth-child(6),
+.ornament-card:focus-within .ornament-card__line:nth-child(6) {
+  animation:
+    palace-line-trace 0.95s ease-in-out 0.55s infinite,
+    palace-line-sway 1.75s ease-in-out 0.08s infinite reverse;
+}
+
+.ornament-card:hover .ornament-card__line:nth-child(7),
+.ornament-card:focus-within .ornament-card__line:nth-child(7) {
+  animation:
+    palace-line-trace 1.75s ease-in-out 0.08s infinite,
+    palace-line-sway 2.85s ease-in-out 0.5s infinite;
+}
+
+.ornament-card:hover .ornament-card__line:nth-child(8),
+.ornament-card:focus-within .ornament-card__line:nth-child(8) {
+  animation:
+    palace-line-trace 1.25s ease-in-out 0.33s infinite,
+    palace-line-sway 2s ease-in-out 0.15s infinite reverse;
+}
+
+.ornament-card:hover .ornament-card__line:nth-child(9),
+.ornament-card:focus-within .ornament-card__line:nth-child(9) {
+  animation:
+    palace-line-trace 1.4s ease-in-out 0.48s infinite,
+    palace-line-sway 2.2s ease-in-out 0.27s infinite;
+}
+
+.ornament-card:hover .ornament-card__line:nth-child(10),
+.ornament-card:focus-within .ornament-card__line:nth-child(10) {
+  animation:
+    palace-line-trace 1.1s ease-in-out 0.2s infinite,
+    palace-line-sway 1.85s ease-in-out 0.6s infinite reverse;
+}
+
+.ornament-card:hover .ornament-card__line:nth-child(11),
+.ornament-card:focus-within .ornament-card__line:nth-child(11) {
+  animation:
+    palace-line-trace 1.5s ease-in-out 0.38s infinite,
+    palace-line-sway 2.35s ease-in-out 0.18s infinite;
+}
+
+.ornament-card:hover .ornament-card__line:nth-child(12),
+.ornament-card:focus-within .ornament-card__line:nth-child(12) {
+  animation:
+    palace-line-trace 0.9s ease-in-out 0.15s infinite,
+    palace-line-sway 1.6s ease-in-out 0.45s infinite reverse;
+}
+
+.ornament-card:hover .ornament-card__line:nth-child(13),
+.ornament-card:focus-within .ornament-card__line:nth-child(13) {
+  animation:
+    palace-line-trace 1.3s ease-in-out 0.52s infinite,
+    palace-line-sway 2.05s ease-in-out 0.3s infinite;
+}
+
+.ornament-card:hover .ornament-card__line:nth-child(14),
+.ornament-card:focus-within .ornament-card__line:nth-child(14) {
+  animation:
+    palace-line-trace 1.2s ease-in-out 0.25s infinite,
+    palace-line-sway 1.95s ease-in-out 0.55s infinite reverse;
+}
+
+.ornament-card:hover .ornament-card__line:nth-child(15),
+.ornament-card:focus-within .ornament-card__line:nth-child(15) {
+  animation:
+    palace-line-trace 1.45s ease-in-out 0.1s infinite,
+    palace-line-sway 2.5s ease-in-out 0.05s infinite;
+}
+
+.ornament-card:hover .ornament-card__line:nth-child(16),
+.ornament-card:focus-within .ornament-card__line:nth-child(16) {
+  animation:
+    palace-line-trace 1.35s ease-in-out 0.32s infinite,
+    palace-line-sway 2.15s ease-in-out 0.4s infinite reverse;
+}
+
+@keyframes palace-line-trace {
+  0% {
+    stroke-dashoffset: 1;
+    opacity: 0.25;
+  }
+  35% {
+    stroke-dashoffset: 0;
+    opacity: 1;
+  }
+  70% {
+    stroke-dashoffset: -0.35;
+    opacity: 0.7;
+  }
+  100% {
+    stroke-dashoffset: -1;
+    opacity: 0.35;
+  }
+}
+
+@keyframes palace-line-sway {
+  0%,
+  100% {
+    transform: rotate(0deg) translate(0, 0);
+  }
+  25% {
+    transform: rotate(1.4deg) translate(0.5px, -0.6px);
+  }
+  55% {
+    transform: rotate(-1.2deg) translate(-0.5px, 0.4px);
+  }
+  80% {
+    transform: rotate(0.8deg) translate(0.3px, 0.5px);
+  }
+}
+
+/* Milder scale on taller ornament cards (events + packages) */
+.events-grid .highlight-card:hover,
+.events-grid .highlight-card:focus-within,
+.packages-grid .highlight-card:hover,
+.packages-grid .highlight-card:focus-within {
+  transform: scale(1.08);
+}
+
 @media (max-width: 767px) {
   .highlight-card:hover,
   .highlight-card:focus-within,
@@ -601,7 +831,8 @@
   .story-collage__item img,
   .hero-fade-in,
   .hero-gold-line,
-  .photo-marquee__track {
+  .photo-marquee__track,
+  .ornament-card__line {
     animation: none !important;
   }
 

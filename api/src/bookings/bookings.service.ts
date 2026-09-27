@@ -5,6 +5,7 @@ import {
   NotFoundException,
 } from '@nestjs/common';
 import { BookingStatus, EventType } from '@prisma/client';
+import { getVenue } from '@luxurydurbar/shared';
 import { PrismaService } from '../prisma/prisma.service';
 import { AvailabilityService } from '../availability/availability.service';
 import { MailService } from '../mail/mail.service';
@@ -20,7 +21,7 @@ export class BookingsService {
 
   private mapBooking(b: {
     id: string;
-    hallId: string;
+    hallSlug: string;
     eventDate: Date;
     startTime: string;
     endTime: string;
@@ -33,14 +34,14 @@ export class BookingsService {
     status: BookingStatus;
     createdAt: Date;
     updatedAt: Date;
-    hall?: { id: string; name: string; slug: string };
   }) {
+    const venue = getVenue(b.hallSlug);
     return {
       id: b.id,
-      hallId: b.hallId,
-      hall: b.hall
-        ? { id: b.hall.id, name: b.hall.name, slug: b.hall.slug }
-        : undefined,
+      hallSlug: b.hallSlug,
+      hall: venue
+        ? { name: venue.name, slug: venue.slug }
+        : { name: b.hallSlug, slug: b.hallSlug },
       eventDate: formatDateOnly(b.eventDate),
       startTime: b.startTime,
       endTime: b.endTime,
@@ -57,7 +58,7 @@ export class BookingsService {
   }
 
   async createPublic(data: {
-    hallId: string;
+    hallSlug: string;
     eventDate: string;
     startTime: string;
     endTime: string;
@@ -72,22 +73,17 @@ export class BookingsService {
       throw new BadRequestException('endTime must be after startTime');
     }
 
-    const hall = await this.prisma.hall.findFirst({
-      where: {
-        OR: [{ id: data.hallId }, { slug: data.hallId }],
-        published: true,
-      },
-    });
-    if (!hall) throw new NotFoundException('Hall not found');
-    if (data.guestCount > hall.capacity) {
+    const venue = getVenue(data.hallSlug);
+    if (!venue) throw new NotFoundException('Hall not found');
+    if (data.guestCount > venue.capacity) {
       throw new BadRequestException(
-        `Guest count exceeds hall capacity (${hall.capacity})`,
+        `Guest count exceeds hall capacity (${venue.capacity})`,
       );
     }
 
     const booking = await this.prisma.booking.create({
       data: {
-        hallId: hall.id,
+        hallSlug: venue.slug,
         eventDate: toDateOnly(data.eventDate),
         startTime: data.startTime,
         endTime: data.endTime,
@@ -99,7 +95,6 @@ export class BookingsService {
         notes: data.notes,
         status: 'pending',
       },
-      include: { hall: { select: { id: true, name: true, slug: true } } },
     });
 
     const dateStr = formatDateOnly(booking.eventDate);
@@ -107,13 +102,13 @@ export class BookingsService {
       this.mail.bookingReceived({
         to: booking.customerEmail,
         customerName: booking.customerName,
-        hallName: hall.name,
+        hallName: venue.name,
         eventDate: dateStr,
         startTime: booking.startTime,
         endTime: booking.endTime,
       }),
       this.mail.staffNewBooking({
-        hallName: hall.name,
+        hallName: venue.name,
         customerName: booking.customerName,
         eventDate: dateStr,
         bookingId: booking.id,
@@ -126,7 +121,6 @@ export class BookingsService {
   async list(status?: BookingStatus) {
     const bookings = await this.prisma.booking.findMany({
       where: status ? { status } : undefined,
-      include: { hall: { select: { id: true, name: true, slug: true } } },
       orderBy: [{ eventDate: 'asc' }, { startTime: 'asc' }],
     });
     return bookings.map((b) => this.mapBooking(b));
@@ -135,11 +129,10 @@ export class BookingsService {
   async get(id: string) {
     const booking = await this.prisma.booking.findUnique({
       where: { id },
-      include: { hall: { select: { id: true, name: true, slug: true } } },
     });
     if (!booking) throw new NotFoundException('Booking not found');
     const conflict = await this.availability.checkConflict({
-      hallId: booking.hallId,
+      hallSlug: booking.hallSlug,
       eventDate: booking.eventDate,
       startTime: booking.startTime,
       endTime: booking.endTime,
@@ -151,13 +144,15 @@ export class BookingsService {
   async updateStatus(id: string, status: BookingStatus) {
     const booking = await this.prisma.booking.findUnique({
       where: { id },
-      include: { hall: true },
     });
     if (!booking) throw new NotFoundException('Booking not found');
 
+    const venue = getVenue(booking.hallSlug);
+    const hallName = venue?.name ?? booking.hallSlug;
+
     if (status === 'confirmed') {
       const conflict = await this.availability.checkConflict({
-        hallId: booking.hallId,
+        hallSlug: booking.hallSlug,
         eventDate: booking.eventDate,
         startTime: booking.startTime,
         endTime: booking.endTime,
@@ -173,7 +168,6 @@ export class BookingsService {
     const updated = await this.prisma.booking.update({
       where: { id },
       data: { status },
-      include: { hall: { select: { id: true, name: true, slug: true } } },
     });
 
     const dateStr = formatDateOnly(updated.eventDate);
@@ -181,68 +175,19 @@ export class BookingsService {
       await this.mail.bookingConfirmed({
         to: updated.customerEmail,
         customerName: updated.customerName,
-        hallName: updated.hall.name,
+        hallName,
         eventDate: dateStr,
       });
     } else if (status === 'rejected') {
       await this.mail.bookingRejected({
         to: updated.customerEmail,
         customerName: updated.customerName,
-        hallName: updated.hall.name,
+        hallName,
         eventDate: dateStr,
       });
     }
 
     return this.mapBooking(updated);
-  }
-
-  async calendar(from: string, to: string) {
-    const fromDate = toDateOnly(from);
-    const toDate = toDateOnly(to);
-
-    const [bookings, blocks] = await Promise.all([
-      this.prisma.booking.findMany({
-        where: {
-          eventDate: { gte: fromDate, lte: toDate },
-          status: { in: ['pending', 'confirmed'] },
-        },
-        include: { hall: true },
-      }),
-      this.prisma.blockedSlot.findMany({
-        where: { date: { gte: fromDate, lte: toDate } },
-        include: { hall: true },
-      }),
-    ]);
-
-    const items = [
-      ...bookings.map((b) => ({
-        id: b.id,
-        type: 'booking' as const,
-        hallId: b.hallId,
-        hallName: b.hall.name,
-        date: formatDateOnly(b.eventDate),
-        startTime: b.startTime,
-        endTime: b.endTime,
-        title: `${b.customerName} — ${b.eventType}`,
-        status: b.status,
-      })),
-      ...blocks.map((bl) => ({
-        id: bl.id,
-        type: 'blocked' as const,
-        hallId: bl.hallId,
-        hallName: bl.hall.name,
-        date: formatDateOnly(bl.date),
-        startTime: bl.startTime,
-        endTime: bl.endTime,
-        title: bl.reason || 'Blocked',
-      })),
-    ];
-
-    return items.sort((a, b) =>
-      a.date === b.date
-        ? a.startTime.localeCompare(b.startTime)
-        : a.date.localeCompare(b.date),
-    );
   }
 
   async dashboard() {
@@ -254,13 +199,90 @@ export class BookingsService {
           eventDate: today,
           status: { in: ['pending', 'confirmed'] },
         },
-        include: { hall: { select: { id: true, name: true, slug: true } } },
         orderBy: { startTime: 'asc' },
       }),
     ]);
     return {
       pendingCount,
       todaysEvents: todaysEvents.map((b) => this.mapBooking(b)),
+    };
+  }
+
+  /** Staff month grid: booked if pending/confirmed; else blocked if any block; else open. */
+  async monthAgenda(fromStr: string, toStr: string) {
+    const from = toDateOnly(fromStr);
+    const to = toDateOnly(toStr);
+
+    const [bookings, blocks] = await Promise.all([
+      this.prisma.booking.findMany({
+        where: {
+          eventDate: { gte: from, lte: to },
+          status: { in: ['pending', 'confirmed'] },
+        },
+        select: { eventDate: true },
+      }),
+      this.prisma.blockedSlot.findMany({
+        where: { date: { gte: from, lte: to } },
+        select: { date: true },
+      }),
+    ]);
+
+    const bookedDates = new Set(bookings.map((b) => formatDateOnly(b.eventDate)));
+    const blockedDates = new Set(blocks.map((b) => formatDateOnly(b.date)));
+
+    const days: { date: string; status: 'open' | 'booked' | 'blocked' }[] = [];
+    const cursor = new Date(from.getTime());
+    while (cursor.getTime() <= to.getTime()) {
+      const date = formatDateOnly(cursor);
+      let status: 'open' | 'booked' | 'blocked' = 'open';
+      if (bookedDates.has(date)) status = 'booked';
+      else if (blockedDates.has(date)) status = 'blocked';
+      days.push({ date, status });
+      cursor.setUTCDate(cursor.getUTCDate() + 1);
+    }
+
+    return {
+      from: formatDateOnly(from),
+      to: formatDateOnly(to),
+      days,
+    };
+  }
+
+  /** Staff day popup: full bookings (incl. notes) + blocked slots. */
+  async dayAgenda(dateStr: string) {
+    const date = toDateOnly(dateStr);
+    const [bookings, blocks] = await Promise.all([
+      this.prisma.booking.findMany({
+        where: {
+          eventDate: date,
+          status: { in: ['pending', 'confirmed'] },
+        },
+        orderBy: [{ startTime: 'asc' }],
+      }),
+      this.prisma.blockedSlot.findMany({
+        where: { date },
+        orderBy: [{ startTime: 'asc' }],
+      }),
+    ]);
+
+    return {
+      date: formatDateOnly(date),
+      bookings: bookings.map((b) => this.mapBooking(b)),
+      blockedSlots: blocks.map((slot) => {
+        const venue = getVenue(slot.hallSlug);
+        return {
+          id: slot.id,
+          hallSlug: slot.hallSlug,
+          hall: venue
+            ? { name: venue.name, slug: venue.slug }
+            : { name: slot.hallSlug, slug: slot.hallSlug },
+          date: formatDateOnly(slot.date),
+          startTime: slot.startTime,
+          endTime: slot.endTime,
+          reason: slot.reason,
+          createdAt: slot.createdAt.toISOString(),
+        };
+      }),
     };
   }
 }

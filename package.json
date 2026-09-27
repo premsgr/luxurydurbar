@@ -17,7 +17,7 @@
     "docker:down": "docker compose --project-directory services down"
   },
   "devDependencies": {
-    "concurrently": "^9.1.2"
+    "concurrently": "^9.2.4"
   },
   "pnpm": {
     "onlyBuiltDependencies": [

@@ -25,50 +25,30 @@ enum EventType {
   birthday
   corporate
   engagement
+  anniversary
+  bratabandha
+  annaprashan
+  festival
   other
 }
 
 model User {
-  id           String   @id @default(cuid())
-  email        String   @unique
+  id           String    @id @default(cuid())
+  email        String    @unique
   passwordHash String
   name         String
-  role         UserRole @default(staff)
+  role         UserRole  @default(staff)
   resetToken   String?
   resetExpires DateTime?
-  createdAt    DateTime @default(now())
-  updatedAt    DateTime @updatedAt
-}
+  createdAt    DateTime  @default(now())
+  updatedAt    DateTime  @updatedAt
 
-model Hall {
-  id          String         @id @default(cuid())
-  name        String
-  slug        String         @unique
-  capacity    Int
-  description String
-  amenities   String[]
-  sortOrder   Int            @default(0)
-  published   Boolean        @default(true)
-  images      HallImage[]
-  bookings    Booking[]
-  blockedSlots BlockedSlot[]
-  createdAt   DateTime       @default(now())
-  updatedAt   DateTime       @updatedAt
-}
-
-model HallImage {
-  id        String @id @default(cuid())
-  hallId    String
-  hall      Hall   @relation(fields: [hallId], references: [id], onDelete: Cascade)
-  url       String
-  caption   String?
-  sortOrder Int    @default(0)
+  @@map("users")
 }
 
 model Booking {
   id            String        @id @default(cuid())
-  hallId        String
-  hall          Hall          @relation(fields: [hallId], references: [id], onDelete: Restrict)
+  hallSlug      String
   eventDate     DateTime      @db.Date
   startTime     String
   endTime       String
@@ -82,18 +62,19 @@ model Booking {
   createdAt     DateTime      @default(now())
   updatedAt     DateTime      @updatedAt
 
-  @@index([hallId, eventDate, status])
+  @@index([hallSlug, eventDate, status])
+  @@map("bookings")
 }
 
 model BlockedSlot {
   id        String   @id @default(cuid())
-  hallId    String
-  hall      Hall     @relation(fields: [hallId], references: [id], onDelete: Cascade)
+  hallSlug  String
   date      DateTime @db.Date
   startTime String
   endTime   String
   reason    String?
   createdAt DateTime @default(now())
 
-  @@index([hallId, date])
+  @@index([hallSlug, date])
+  @@map("blocked_slots")
 }

@@ -101,6 +101,21 @@
 
     <section class="section">
       <Reveal>
+        <p class="eyebrow">{{ t('home.eventsTeaser.eyebrow') }}</p>
+        <h2 class="mt-2 max-w-3xl text-3xl sm:text-4xl text-white tracking-wide">
+          {{ t('home.eventsTeaser.title') }}
+        </h2>
+        <p class="mt-4 max-w-3xl font-sans text-white/60 leading-relaxed">
+          {{ t('home.eventsTeaser.text') }}
+        </p>
+        <NuxtLinkLocale to="/events" class="mt-8 inline-block font-sans text-sm uppercase tracking-wider text-gold hover:text-gold-light">
+          {{ t('home.eventsTeaser.link') }} →
+        </NuxtLinkLocale>
+      </Reveal>
+    </section>
+
+    <section class="section">
+      <Reveal>
         <p class="eyebrow">{{ t('home.highlights.title') }}</p>
       </Reveal>
       <div class="mt-10 grid gap-8 sm:grid-cols-2 lg:grid-cols-4 highlight-grid">
@@ -109,7 +124,8 @@
           :key="key"
           :delay="i * 80"
         >
-          <div class="highlight-card border border-white/10 bg-white/[0.03] p-6 h-full">
+          <div class="highlight-card ornament-card border border-white/10 bg-white/[0.03] p-6 h-full">
+            <CardOrnament />
             <div class="text-gold text-xl mb-3">◆</div>
             <h3 class="text-xl text-gold-light">{{ t(`home.highlights.${key}.title`) }}</h3>
             <p class="mt-3 font-sans text-sm text-white/60 leading-relaxed">
@@ -213,18 +229,16 @@
           </div>
         </div>
 
-        <div v-if="pending" class="font-sans text-white/50">{{ t('common.loading') }}</div>
-        <div v-else-if="error" class="font-sans text-red-400">{{ t('common.loadError') }}</div>
-        <div v-else class="grid gap-8 md:grid-cols-3">
+        <div class="grid gap-8 md:grid-cols-3">
           <Reveal
             v-for="(hall, i) in filteredHalls"
-            :key="hall.id"
+            :key="hall.slug"
             :delay="i * 90"
           >
             <article class="group overflow-hidden border border-white/10 bg-ink h-full">
               <div class="aspect-[4/3] overflow-hidden">
                 <img
-                  :src="hallPrimaryPhoto(hall.slug, hall.images[0]?.url)"
+                  :src="hallPrimaryPhoto(hall.slug)"
                   :alt="hall.name"
                   class="h-full w-full object-cover transition duration-700 group-hover:scale-105"
                 />
@@ -290,7 +304,7 @@ export default { name: 'HomePage' }
 </script>
 
 <script setup lang="ts">
-import type { HallDto } from '@luxurydurbar/shared'
+import { VENUES, type Venue } from '@luxurydurbar/shared'
 import {
   hallPrimaryPhoto,
   HOME_MENU_PHOTOS,
@@ -299,20 +313,13 @@ import {
   VENUE_TAB_HALLS,
   type StoryChapterKey,
 } from '~/utils/photos'
-import { SEO_KEYWORDS } from '~/utils/seo'
 
 const { t, tm, rt } = useI18n()
-const { api } = useApi()
-const config = useRuntimeConfig()
 
-useSeoMeta({
-  title: () => t('home.seoTitle'),
-  description: () => t('home.seoDesc'),
-  keywords: SEO_KEYWORDS,
-  ogTitle: () => t('home.seoTitle'),
-  ogDescription: () => t('home.seoDesc'),
-  ogImage: () => `${config.public.siteUrl}${PHOTOS.hero}`,
-  twitterCard: 'summary_large_image',
+useSiteSeo({
+  titleKey: 'home.seoTitle',
+  descriptionKey: 'home.seoDesc',
+  image: PHOTOS.hero,
 })
 
 const heroImages = [PHOTOS.hero, PHOTOS.heroAlt] as const
@@ -356,16 +363,11 @@ watch(lightboxIndex, (value) => {
   document.body.style.overflow = value === null ? '' : 'hidden'
 })
 
-const { data: halls, pending, error } = await useAsyncData('home-halls', () =>
-  api<HallDto[]>('/halls'),
-)
-
 const filteredHalls = computed(() => {
-  const list = halls.value || []
   const order = VENUE_TAB_HALLS[activeTab.value] ?? VENUE_TAB_HALLS.all ?? []
   return order
-    .map((slug) => list.find((h) => h.slug === slug))
-    .filter((h): h is HallDto => !!h)
+    .map((slug) => VENUES.find((h) => h.slug === slug))
+    .filter((h): h is Venue => !!h)
 })
 
 const testimonials = computed(() => {

@@ -13,6 +13,10 @@ export const EVENT_TYPES = [
   'birthday',
   'corporate',
   'engagement',
+  'anniversary',
+  'bratabandha',
+  'annaprashan',
+  'festival',
   'other',
 ] as const;
 
@@ -22,31 +26,76 @@ export const USER_ROLES = ['admin', 'staff'] as const;
 
 export type UserRole = (typeof USER_ROLES)[number];
 
-export interface HallImageDto {
-  id: string;
-  url: string;
-  caption: string | null;
-  sortOrder: number;
-}
-
-export interface HallDto {
-  id: string;
-  name: string;
+export interface Venue {
   slug: string;
+  name: string;
   capacity: number;
   description: string;
   amenities: string[];
   sortOrder: number;
-  published: boolean;
-  images: HallImageDto[];
-  createdAt: string;
-  updatedAt: string;
 }
+
+/** Static venue catalog — not stored in the database */
+export const VENUES: readonly Venue[] = [
+  {
+    slug: 'royal-durbar-hall',
+    name: 'Royal Durbar Hall',
+    capacity: 800,
+    description:
+      'Our flagship banquet hall with crystal chandeliers, grand stage, and space for up to 800 guests. Ideal for weddings and large celebrations.',
+    amenities: [
+      'Crystal chandeliers',
+      'LED stage lighting',
+      'Bridal suite',
+      'Valet parking',
+      'In-house catering kitchen',
+    ],
+    sortOrder: 1,
+  },
+  {
+    slug: 'peacock-garden-hall',
+    name: 'Peacock Garden Hall',
+    capacity: 350,
+    description:
+      'An elegant mid-size hall with garden terrace views — perfect for receptions, engagements, and corporate evenings.',
+    amenities: [
+      'Garden terrace',
+      'Natural light',
+      'AV system',
+      'Dedicated bar area',
+    ],
+    sortOrder: 2,
+  },
+  {
+    slug: 'emerald-chamber',
+    name: 'Emerald Chamber',
+    capacity: 120,
+    description:
+      'An intimate chamber for private dinners, birthdays, and exclusive gatherings.',
+    amenities: ['Private entrance', 'Lounge seating', 'Custom décor'],
+    sortOrder: 3,
+  },
+] as const;
+
+export function getVenue(slug: string): Venue | undefined {
+  return VENUES.find((v) => v.slug === slug);
+}
+
+export function requireVenue(slug: string): Venue {
+  const venue = getVenue(slug);
+  if (!venue) {
+    throw new Error(`Unknown venue slug: ${slug}`);
+  }
+  return venue;
+}
+
+/** @deprecated Use Venue — kept for gradual migration of UI types */
+export type HallDto = Venue;
 
 export interface BookingDto {
   id: string;
-  hallId: string;
-  hall?: Pick<HallDto, 'id' | 'name' | 'slug'>;
+  hallSlug: string;
+  hall?: Pick<Venue, 'name' | 'slug'>;
   eventDate: string;
   startTime: string;
   endTime: string;
@@ -63,8 +112,8 @@ export interface BookingDto {
 
 export interface BlockedSlotDto {
   id: string;
-  hallId: string;
-  hall?: Pick<HallDto, 'id' | 'name' | 'slug'>;
+  hallSlug: string;
+  hall?: Pick<Venue, 'name' | 'slug'>;
   date: string;
   startTime: string;
   endTime: string;
@@ -73,7 +122,7 @@ export interface BlockedSlotDto {
 }
 
 export interface CreateBookingRequest {
-  hallId: string;
+  hallSlug: string;
   eventDate: string;
   startTime: string;
   endTime: string;
@@ -93,10 +142,57 @@ export interface AvailabilitySlot {
 }
 
 export interface AvailabilityResponse {
-  hallId: string;
+  hallSlug: string;
   date: string;
   slots: AvailabilitySlot[];
   available: boolean;
+}
+
+export interface OccupancySlot {
+  startTime: string;
+  endTime: string;
+  status: 'open' | 'booked' | 'blocked';
+  eventType?: EventType;
+}
+
+export interface HallOccupancy {
+  hallSlug: string;
+  hallName: string;
+  slots: OccupancySlot[];
+}
+
+export interface OccupancyOverview {
+  date: string;
+  halls: HallOccupancy[];
+}
+
+export interface MonthDayStatus {
+  date: string;
+  status: 'open' | 'booked';
+}
+
+export interface MonthOccupancy {
+  from: string;
+  to: string;
+  days: MonthDayStatus[];
+}
+
+/** Staff dashboard calendar — day may be open, have bookings, or only blocks. */
+export interface AdminMonthDayStatus {
+  date: string;
+  status: 'open' | 'booked' | 'blocked';
+}
+
+export interface AdminMonthOccupancy {
+  from: string;
+  to: string;
+  days: AdminMonthDayStatus[];
+}
+
+export interface AdminDayAgenda {
+  date: string;
+  bookings: BookingDto[];
+  blockedSlots: BlockedSlotDto[];
 }
 
 export interface StaffUserDto {
@@ -111,14 +207,9 @@ export interface LoginRequest {
   password: string;
 }
 
-export interface CalendarItem {
-  id: string;
-  type: 'booking' | 'blocked';
-  hallId: string;
-  hallName: string;
-  date: string;
-  startTime: string;
-  endTime: string;
-  title: string;
-  status?: BookingStatus;
+export interface CreateStaffRequest {
+  email: string;
+  name: string;
+  password: string;
+  role?: UserRole;
 }

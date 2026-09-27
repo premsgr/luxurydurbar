@@ -58,19 +58,13 @@ import {
   GALLERY_SECTIONS,
   PHOTOS,
 } from '~/utils/photos'
-import { SEO_KEYWORDS } from '~/utils/seo'
 
 const { t, tm, rt } = useI18n()
-const config = useRuntimeConfig()
 
-useSeoMeta({
-  title: () => t('gallery.seoTitle'),
-  description: () => t('gallery.seoDesc'),
-  keywords: SEO_KEYWORDS,
-  ogTitle: () => t('gallery.seoTitle'),
-  ogDescription: () => t('gallery.seoDesc'),
-  ogImage: () => `${config.public.siteUrl}${PHOTOS.hero}`,
-  twitterCard: 'summary_large_image',
+useSiteSeo({
+  titleKey: 'gallery.seoTitle',
+  descriptionKey: 'gallery.seoDesc',
+  image: PHOTOS.hero,
 })
 
 const testimonials = computed(() => {

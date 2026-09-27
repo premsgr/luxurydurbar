@@ -16,7 +16,7 @@ const TIME_RE = /^([01]\d|2[0-3]):[0-5]\d$/;
 
 class CreateBlockedDto {
   @IsString()
-  hallId!: string;
+  hallSlug!: string;
 
   @IsDateString()
   date!: string;
@@ -38,8 +38,8 @@ export class BlockedSlotsController {
   constructor(private readonly blocked: BlockedSlotsService) {}
 
   @Get()
-  list(@Query('hallId') hallId?: string) {
-    return this.blocked.list(hallId);
+  list(@Query('hallSlug') hallSlug?: string) {
+    return this.blocked.list(hallSlug);
   }
 
   @Post()

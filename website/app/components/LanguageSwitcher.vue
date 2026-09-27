@@ -53,7 +53,7 @@ watch(
   locale,
   (code) => {
     if (import.meta.client) {
-      document.documentElement.lang = code === 'ne' ? 'ne' : 'en'
+      document.documentElement.lang = code === 'ne' ? 'ne-NP' : 'en-US'
     }
   },
   { immediate: true },

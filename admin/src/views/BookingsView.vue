@@ -23,11 +23,13 @@
         </thead>
         <tbody>
           <tr v-for="b in bookings" :key="b.id">
-            <td>{{ b.eventDate }} {{ b.startTime }}–{{ b.endTime }}</td>
-            <td>{{ b.hall?.name }}</td>
             <td>
-              <RouterLink :to="`/bookings/${b.id}`">{{ b.customerName }}</RouterLink>
+              <RouterLink :to="`/bookings/${b.id}`">
+                {{ b.eventDate }} {{ b.startTime }}–{{ b.endTime }}
+              </RouterLink>
             </td>
+            <td>{{ b.hall?.name }}</td>
+            <td>{{ b.customerName }}</td>
             <td>{{ b.eventType }}</td>
             <td><span class="badge" :class="b.status">{{ b.status }}</span></td>
           </tr>

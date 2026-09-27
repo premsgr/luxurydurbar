@@ -6,9 +6,9 @@
       <div class="grid-2">
         <div>
           <label class="label">Hall</label>
-          <select v-model="form.hallId" class="select">
+          <select v-model="form.hallSlug" class="select">
             <option disabled value="">Select hall</option>
-            <option v-for="h in halls" :key="h.id" :value="h.id">{{ h.name }}</option>
+            <option v-for="h in halls" :key="h.slug" :value="h.slug">{{ h.name }}</option>
           </select>
         </div>
         <div>
@@ -62,14 +62,14 @@
 
 <script setup lang="ts">
 import { onMounted, reactive, ref } from 'vue'
-import type { BlockedSlotDto, HallDto } from '@luxurydurbar/shared'
+import { VENUES, type BlockedSlotDto } from '@luxurydurbar/shared'
 import { api, ApiError } from '../lib/api'
 
-const halls = ref<HallDto[]>([])
+const halls = VENUES
 const slots = ref<BlockedSlotDto[]>([])
 const error = ref('')
 const form = reactive({
-  hallId: '',
+  hallSlug: halls[0]?.slug ?? '',
   date: '',
   startTime: '09:00',
   endTime: '22:00',
@@ -77,11 +77,7 @@ const form = reactive({
 })
 
 async function load() {
-  ;[halls.value, slots.value] = await Promise.all([
-    api<HallDto[]>('/halls/admin/all'),
-    api<BlockedSlotDto[]>('/blocked-slots'),
-  ])
-  if (!form.hallId && halls.value[0]) form.hallId = halls.value[0].id
+  slots.value = await api<BlockedSlotDto[]>('/blocked-slots')
 }
 
 async function create() {

@@ -6,6 +6,14 @@
       :image="PHOTOS.hero"
     />
 
+    <section class="section !pb-0">
+      <HallAvailabilityBoard
+        v-model:date="form.eventDate"
+        :selected-hall="form.hallSlug"
+        @select-hall="form.hallSlug = $event"
+      />
+    </section>
+
     <section class="section grid gap-12 lg:grid-cols-5">
       <form class="lg:col-span-3 space-y-5" @submit.prevent="submit">
         <div class="grid gap-5 sm:grid-cols-2">
@@ -35,8 +43,8 @@
         <div class="grid gap-5 sm:grid-cols-2">
           <div>
             <label class="label">{{ t('contact.form.hall') }}</label>
-            <select v-model="form.hallId" class="input" required>
-              <option v-for="h in halls" :key="h.id" :value="h.id">
+            <select v-model="form.hallSlug" class="input" required>
+              <option v-for="h in halls" :key="h.slug" :value="h.slug">
                 {{ h.name }} ({{ h.capacity }})
               </option>
             </select>
@@ -64,7 +72,7 @@
           <button
             type="button"
             class="btn-outline !py-2"
-            :disabled="!form.hallId || !form.eventDate"
+            :disabled="!form.hallSlug || !form.eventDate"
             @click="checkAvailability"
           >
             {{ t('contact.form.checkAvail') }}
@@ -122,7 +130,7 @@
             class="h-full w-full grayscale contrast-125 opacity-80"
             loading="lazy"
             referrerpolicy="no-referrer-when-downgrade"
-            src="https://maps.google.com/maps?q=Kathmandu%20Valley%2C%20Nepal&z=12&output=embed"
+            src="https://maps.google.com/maps?q=Sitapaila%2C%20Kathmandu%2C%20Nepal&z=14&output=embed"
           />
         </div>
       </aside>
@@ -135,27 +143,21 @@ export default { name: 'ContactPage' }
 </script>
 
 <script setup lang="ts">
-import { EVENT_TYPES, type AvailabilityResponse, type HallDto } from '@luxurydurbar/shared'
+import { EVENT_TYPES, VENUES, type AvailabilityResponse } from '@luxurydurbar/shared'
 import { PHOTOS } from '~/utils/photos'
-import { SEO_KEYWORDS } from '~/utils/seo'
 
 const { t, te, tm, rt } = useI18n()
 const { api } = useApi()
 const route = useRoute()
-const config = useRuntimeConfig()
 const eventTypes = EVENT_TYPES
+const halls = VENUES
 const minDate = new Date().toISOString().slice(0, 10)
 
-useSeoMeta({
-  title: () => t('contact.seoTitle'),
-  description: () => t('contact.seoDesc'),
-  keywords: SEO_KEYWORDS,
-  ogTitle: () => t('contact.seoTitle'),
-  ogDescription: () => t('contact.seoDesc'),
-  ogImage: () => `${config.public.siteUrl}${PHOTOS.hero}`,
+useSiteSeo({
+  titleKey: 'contact.seoTitle',
+  descriptionKey: 'contact.seoDesc',
+  image: PHOTOS.hero,
 })
-
-const { data: halls } = await useAsyncData('contact-halls', () => api<HallDto[]>('/halls'))
 
 const guestBucket = ref('100to300')
 const guestCountMap: Record<string, number> = {
@@ -166,7 +168,7 @@ const guestCountMap: Record<string, number> = {
 }
 
 const form = reactive({
-  hallId: '',
+  hallSlug: halls[0]?.slug ?? '',
   eventDate: '',
   startTime: '15:00',
   endTime: '22:00',
@@ -183,13 +185,11 @@ watchEffect(() => {
 })
 
 watchEffect(() => {
-  if (!halls.value?.length) return
   const pref = String(route.query.hall || '')
   if (pref) {
-    const match = halls.value.find((h) => h.slug === pref || h.id === pref)
-    if (match) form.hallId = match.id
+    const match = halls.find((h) => h.slug === pref)
+    if (match) form.hallSlug = match.slug
   }
-  if (!form.hallId) form.hallId = halls.value[0]?.id || ''
 })
 
 watchEffect(() => {
@@ -236,7 +236,7 @@ const successMsg = ref('')
 async function checkAvailability() {
   availabilityMsg.value = ''
   const result = await api<AvailabilityResponse>(
-    `/availability?hallId=${form.hallId}&date=${form.eventDate}`,
+    `/availability?hallSlug=${form.hallSlug}&date=${form.eventDate}`,
   )
   availabilityOk.value = result.available
   availabilityMsg.value = result.available

@@ -1,6 +1,5 @@
 <template>
-  <div v-if="pending" class="section font-sans text-white/50">{{ t('common.loading') }}</div>
-  <div v-else-if="error || !hall" class="section font-sans text-red-400">
+  <div v-if="!hall" class="section font-sans text-red-400">
     {{ t('halls.detail.notFound') }}
   </div>
   <div v-else>
@@ -63,26 +62,19 @@ export default { name: 'HallDetail' }
 </script>
 
 <script setup lang="ts">
-import type { HallDto } from '@luxurydurbar/shared'
+import { getVenue } from '@luxurydurbar/shared'
 import { hallPhotos, PHOTOS } from '~/utils/photos'
-import { SEO_DEFAULT_DESCRIPTION, SEO_KEYWORDS } from '~/utils/seo'
+import { seoDefaultDescriptionForLocale, seoKeywordsForLocale } from '~/utils/seo'
 
 const { t, te, locale } = useI18n()
 const localePath = useLocalePath()
 const route = useRoute()
-const { api } = useApi()
 const config = useRuntimeConfig()
 const slug = computed(() => String(route.params.slug))
 
-const { data: hall, pending, error } = await useAsyncData(
-  () => `hall-${slug.value}`,
-  () => api<HallDto>(`/halls/${slug.value}`),
-  { watch: [slug] },
-)
+const hall = computed(() => getVenue(slug.value))
 
-const photos = computed(() =>
-  hallPhotos(slug.value, hall.value?.images.map((i) => i.url) || []),
-)
+const photos = computed(() => hallPhotos(slug.value))
 
 function marketing(field: string): string {
   const key = `halls.marketing.${slug.value}.${field}`
@@ -97,14 +89,32 @@ const description = computed(() => {
   return hall.value?.description || ''
 })
 
-useSeoMeta({
-  title: () => (hall.value ? `${hall.value.name} — Luxury Durbar Kathmandu` : 'Hall — Luxury Durbar'),
-  description: () =>
-    hall.value?.description?.slice(0, 155)
-    || 'Banquet hall at Luxury Durbar for events, parties, and Bratabandha in Kathmandu, Nepal.',
-  keywords: SEO_KEYWORDS,
-  ogTitle: () => (hall.value ? `${hall.value.name} — Luxury Durbar` : 'Hall — Luxury Durbar'),
-  ogDescription: () => hall.value?.description?.slice(0, 155) || SEO_DEFAULT_DESCRIPTION,
-  ogImage: () => `${config.public.siteUrl}${photos.value[0] || PHOTOS.hall}`,
+const seoDescription = computed(() => {
+  const body = description.value || t('halls.detail.seoFallbackDesc')
+  return body.slice(0, 155)
 })
+
+useSeoMeta({
+  title: () =>
+    hall.value
+      ? `${hall.value.name} — ${t('halls.detail.seoTitleSuffix')}`
+      : t('halls.detail.notFound'),
+  description: () => seoDescription.value,
+  ogTitle: () =>
+    hall.value
+      ? `${hall.value.name} — Luxury Durbar`
+      : t('halls.detail.notFound'),
+  ogDescription: () => seoDescription.value || seoDefaultDescriptionForLocale(locale.value),
+  ogImage: () => `${config.public.siteUrl}${photos.value[0] || PHOTOS.hall}`,
+  twitterCard: 'summary_large_image',
+})
+
+useHead(() => ({
+  meta: [
+    {
+      name: 'keywords',
+      content: seoKeywordsForLocale(locale.value),
+    },
+  ],
+}))
 </script>

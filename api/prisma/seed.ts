@@ -21,90 +21,6 @@ async function main() {
 
   await prisma.booking.deleteMany();
   await prisma.blockedSlot.deleteMany();
-  await prisma.hallImage.deleteMany();
-  await prisma.hall.deleteMany();
-
-  const royal = await prisma.hall.create({
-    data: {
-      name: 'Royal Durbar Hall',
-      slug: 'royal-durbar-hall',
-      capacity: 800,
-      description:
-        'Our flagship banquet hall with crystal chandeliers, grand stage, and space for up to 800 guests. Ideal for weddings and large celebrations.',
-      amenities: [
-        'Crystal chandeliers',
-        'LED stage lighting',
-        'Bridal suite',
-        'Valet parking',
-        'In-house catering kitchen',
-      ],
-      sortOrder: 1,
-      published: true,
-      images: {
-        create: [
-          {
-            url: 'https://images.unsplash.com/photo-1519167758481-83f29da8c2b2?w=1600',
-            caption: 'Grand ballroom',
-            sortOrder: 0,
-          },
-          {
-            url: 'https://images.unsplash.com/photo-1464366400600-7168b8af9bc3?w=1600',
-            caption: 'Evening reception',
-            sortOrder: 1,
-          },
-        ],
-      },
-    },
-  });
-
-  const peacock = await prisma.hall.create({
-    data: {
-      name: 'Peacock Garden Hall',
-      slug: 'peacock-garden-hall',
-      capacity: 350,
-      description:
-        'An elegant mid-size hall with garden terrace views — perfect for receptions, engagements, and corporate evenings.',
-      amenities: [
-        'Garden terrace',
-        'Natural light',
-        'AV system',
-        'Dedicated bar area',
-      ],
-      sortOrder: 2,
-      published: true,
-      images: {
-        create: [
-          {
-            url: 'https://images.unsplash.com/photo-1478144592103-25e218a04891?w=1600',
-            caption: 'Garden ambiance',
-            sortOrder: 0,
-          },
-        ],
-      },
-    },
-  });
-
-  await prisma.hall.create({
-    data: {
-      name: 'Emerald Chamber',
-      slug: 'emerald-chamber',
-      capacity: 120,
-      description:
-        'An intimate chamber for private dinners, birthdays, and exclusive gatherings.',
-      amenities: ['Private entrance', 'Lounge seating', 'Custom décor'],
-      sortOrder: 3,
-      published: true,
-      images: {
-        create: [
-          {
-            url: 'https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=1600',
-            caption: 'Intimate dining',
-            sortOrder: 0,
-          },
-        ],
-      },
-    },
-  });
 
   const inTwoWeeks = new Date();
   inTwoWeeks.setUTCDate(inTwoWeeks.getUTCDate() + 14);
@@ -117,7 +33,7 @@ async function main() {
   await prisma.booking.createMany({
     data: [
       {
-        hallId: royal.id,
+        hallSlug: 'royal-durbar-hall',
         eventDate: inTwoWeeks,
         startTime: '15:00',
         endTime: '22:00',
@@ -130,7 +46,7 @@ async function main() {
         status: 'confirmed',
       },
       {
-        hallId: peacock.id,
+        hallSlug: 'peacock-garden-hall',
         eventDate: nextWeek,
         startTime: '09:00',
         endTime: '14:00',

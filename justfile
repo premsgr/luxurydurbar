@@ -52,7 +52,7 @@ seed:
 seed-if-empty:
     #!/usr/bin/env bash
     set -euo pipefail
-    count="$(docker exec luxurydurbar-postgres sh -c 'psql -U "$POSTGRES_USER" -d "$POSTGRES_DB" -tAc "SELECT COUNT(*) FROM \"Hall\""')"
+    count="$(docker exec luxurydurbar-postgres sh -c 'psql -U "$POSTGRES_USER" -d "$POSTGRES_DB" -tAc "SELECT COUNT(*) FROM users"')"
     count="${count//[[:space:]]/}"
     if [[ "$count" == "0" ]]; then
       pnpm db:seed

@@ -69,6 +69,8 @@ button, input, select, textarea {
 .badge.confirmed { background: #163527; color: #3ecf8e; }
 .badge.rejected, .badge.cancelled { background: #3a1d22; color: #e35d6a; }
 .badge.blocked { background: #2a303b; color: #9aa3b2; }
+.badge.admin { background: #3b3018; color: #f0c674; }
+.badge.staff { background: #1c2433; color: #9aa3b2; }
 .error { color: var(--danger); font-size: 0.9rem; }
 .ok { color: var(--ok); font-size: 0.9rem; }
 .layout {
@@ -104,7 +106,153 @@ button, input, select, textarea {
 .muted { color: var(--muted); }
 .stack { display: flex; flex-direction: column; gap: 0.85rem; }
 .row { display: flex; gap: 0.75rem; flex-wrap: wrap; align-items: center; }
+
+/* Dashboard occupancy calendar */
+.dash-cal__header {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  justify-content: space-between;
+  align-items: flex-end;
+  margin-bottom: 1rem;
+}
+.dash-cal__title { margin: 0; font-size: 1.15rem; }
+.dash-cal__month {
+  min-width: 9rem;
+  text-align: center;
+  color: var(--gold);
+  font-weight: 600;
+}
+.dash-cal__legend {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  margin-bottom: 1rem;
+  font-size: 0.8rem;
+  color: var(--muted);
+}
+.dash-cal__legend span { display: inline-flex; align-items: center; gap: 0.4rem; }
+.dash-cal__dot {
+  display: inline-block;
+  width: 0.5rem;
+  height: 0.5rem;
+  border-radius: 999px;
+}
+.dash-cal__dot.open { background: var(--ok); }
+.dash-cal__dot.booked { background: #f0a060; }
+.dash-cal__dot.blocked { background: var(--muted); }
+.dash-cal__grid {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 0.35rem;
+}
+.dash-cal__weekday {
+  text-align: center;
+  font-size: 0.7rem;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--muted);
+  padding-bottom: 0.35rem;
+}
+.dash-cal__day {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.2rem;
+  min-height: 3rem;
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  background: #12151b;
+  color: var(--text);
+  cursor: pointer;
+  padding: 0.35rem 0.2rem;
+}
+.dash-cal__day:disabled,
+.dash-cal__day.empty {
+  border-color: transparent;
+  background: transparent;
+  cursor: default;
+  opacity: 0;
+  pointer-events: none;
+}
+.dash-cal__day.open { background: rgba(62, 207, 142, 0.08); }
+.dash-cal__day.booked { background: rgba(240, 160, 96, 0.12); }
+.dash-cal__day.blocked { background: rgba(154, 163, 178, 0.1); }
+.dash-cal__day.today { border-color: var(--gold); }
+.dash-cal__day.selected {
+  border-color: var(--gold);
+  box-shadow: 0 0 0 1px rgba(201, 162, 39, 0.45);
+}
+.dash-cal__day:not(:disabled):hover { border-color: rgba(201, 162, 39, 0.5); }
+.dash-cal__day-num { font-size: 0.9rem; line-height: 1; }
+.dash-cal__day-status {
+  font-size: 0.55rem;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  font-weight: 600;
+  line-height: 1;
+}
+.dash-cal__day-status.open { color: var(--ok); }
+.dash-cal__day-status.booked { color: #f0a060; }
+.dash-cal__day-status.blocked { color: var(--muted); }
+.dash-cal__modal {
+  position: fixed;
+  inset: 0;
+  z-index: 50;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1rem;
+}
+.dash-cal__backdrop {
+  position: absolute;
+  inset: 0;
+  border: 0;
+  background: rgba(8, 10, 14, 0.75);
+  cursor: pointer;
+}
+.dash-cal__dialog {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  max-width: 40rem;
+  max-height: 85vh;
+  overflow-y: auto;
+}
+.dash-cal__halls {
+  display: grid;
+  gap: 1rem;
+  margin-top: 1.25rem;
+}
+.dash-cal__hall h4 {
+  margin: 0 0 0.65rem;
+  font-size: 1rem;
+  color: var(--gold);
+}
+.dash-cal__item {
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 0.85rem;
+  margin-bottom: 0.65rem;
+  background: #12151b;
+}
+.dash-cal__item.blocked { opacity: 0.9; }
+.dash-cal__notes {
+  margin: 0.5rem 0 0;
+  white-space: pre-wrap;
+  font-size: 0.92rem;
+}
+.dash-cal__link {
+  display: inline-block;
+  margin-top: 0.55rem;
+  font-size: 0.85rem;
+  font-weight: 600;
+}
+
 @media (max-width: 800px) {
   .layout { grid-template-columns: 1fr; }
   .sidebar { border-right: 0; border-bottom: 1px solid var(--border); }
+  .dash-cal__day { min-height: 2.6rem; }
+  .dash-cal__day-status { display: none; }
 }

@@ -22,6 +22,7 @@ export default defineNuxtConfig({
     defaultLocale: 'en',
     strategy: 'prefix_except_default',
     langDir: 'locales',
+    baseUrl: process.env.NUXT_PUBLIC_SITE_URL || 'http://localhost:33001',
     detectBrowserLanguage: {
       useCookie: true,
       cookieKey: 'ld_locale',
@@ -30,46 +31,45 @@ export default defineNuxtConfig({
   },
   app: {
     head: {
-      htmlAttrs: { lang: 'en' },
-      title: 'Luxury Durbar — Banquet, Events, Parties & Bratabandha in Kathmandu, Nepal',
+      title: 'Luxury Durbar — Banquet Hall & Party Palace in Sitapaila, Kathmandu',
       meta: [
         {
           name: 'description',
           content:
-            'Luxury Durbar is a premium banquet venue in Kathmandu, Nepal for weddings, receptions, birthday parties, corporate events, and Bratabandha (bartabandha) ceremonies.',
+            'Luxury Durbar is a premium banquet hall and party palace in Sitapaila, Kathmandu, Nepal for weddings, birthdays, anniversaries, business events, Bratabandha, Annaprashan, and festival celebrations.',
         },
         {
           name: 'keywords',
           content:
-            'banquet Kathmandu, banquet hall Nepal, events Kathmandu, parties Kathmandu, birthday party venue Kathmandu, Bratabandha Kathmandu, bartabandha Nepal, wedding banquet Kathmandu, Luxury Durbar',
+            'banquet hall Sitapaila, party palace Kathmandu, wedding venue Nepal, Bratabandha Kathmandu, Annaprashan Nepal, birthday party venue Kathmandu, anniversary venue Kathmandu, corporate events Kathmandu, Luxury Durbar',
         },
         { name: 'robots', content: 'index, follow' },
         { name: 'geo.region', content: 'NP-P3' },
-        { name: 'geo.placename', content: 'Kathmandu' },
+        { name: 'geo.placename', content: 'Sitapaila, Kathmandu' },
         { name: 'author', content: 'Luxury Durbar' },
         { property: 'og:type', content: 'website' },
         { property: 'og:locale', content: 'en_US' },
         {
           property: 'og:title',
           content:
-            'Luxury Durbar — Banquet, Events, Parties & Bratabandha in Kathmandu, Nepal',
+            'Luxury Durbar — Banquet Hall & Party Palace in Sitapaila, Kathmandu',
         },
         {
           property: 'og:description',
           content:
-            'Premium banquet venue in Kathmandu for weddings, parties, birthdays, and Bratabandha ceremonies.',
+            'Premium banquet venue in Sitapaila, Kathmandu for weddings, parties, Bratabandha, Annaprashan, and every celebration.',
         },
         { property: 'og:image', content: '/assets/front-view.jpg' },
         { name: 'twitter:card', content: 'summary_large_image' },
         {
           name: 'twitter:title',
           content:
-            'Luxury Durbar — Banquet, Events, Parties & Bratabandha in Kathmandu, Nepal',
+            'Luxury Durbar — Banquet Hall & Party Palace in Sitapaila, Kathmandu',
         },
         {
           name: 'twitter:description',
           content:
-            'Premium banquet venue in Kathmandu for weddings, parties, birthdays, and Bratabandha ceremonies.',
+            'Premium banquet venue in Sitapaila, Kathmandu for weddings, parties, Bratabandha, Annaprashan, and every celebration.',
         },
         { name: 'twitter:image', content: '/assets/front-view.jpg' },
       ],
