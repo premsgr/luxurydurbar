@@ -40,6 +40,12 @@
         <span class="h-2 w-2 rounded-full bg-orange-400" />
         {{ t('contact.occupancy.legendBooked') }}
       </span>
+      <span class="inline-flex items-center gap-2">
+        <svg class="h-3.5 w-3.5 text-amber-300" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z" />
+        </svg>
+        {{ t('contact.occupancy.legendMaintenance') }}
+      </span>
     </div>
 
     <p v-if="monthLoading" class="mt-4 font-sans text-sm text-white/50">
@@ -62,7 +68,7 @@
           v-for="(cell, idx) in calendarCells"
           :key="`${cell.date ?? 'empty'}-${idx}`"
           type="button"
-          class="hall-availability-board__day flex h-10 sm:h-11 flex-col items-center justify-center gap-0 rounded-sm border px-0.5 font-sans transition"
+          class="hall-availability-board__day flex h-12 sm:h-14 flex-col items-center justify-center gap-0 rounded-sm border px-0.5 font-sans transition"
           :class="dayCellClass(cell)"
           :disabled="!cell.clickable"
           @click="onDayClick(cell)"
@@ -71,7 +77,17 @@
             {{ cell.day }}
           </span>
           <span
-            v-if="cell.clickable && cell.status"
+            v-if="cell.maintenance"
+            class="mt-0.5 text-amber-300"
+            :title="t('contact.occupancy.legendMaintenance')"
+          >
+            <svg class="h-3.5 w-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z" />
+            </svg>
+            <span class="sr-only">{{ t('contact.occupancy.legendMaintenance') }}</span>
+          </span>
+          <span
+            v-else-if="cell.clickable && cell.status"
             class="mt-0.5 text-[0.55rem] sm:text-[0.65rem] uppercase tracking-wide leading-none font-medium"
             :class="cell.status === 'booked' ? 'text-orange-400' : 'text-emerald-400'"
           >
@@ -117,6 +133,13 @@
               {{ t('contact.occupancy.close') }}
             </button>
           </div>
+
+          <p
+            v-if="popupUnderMaintenance"
+            class="mt-4 font-sans text-sm text-amber-300"
+          >
+            {{ t('contact.occupancy.maintenanceNotice') }}
+          </p>
 
           <p v-if="popupLoading" class="mt-6 font-sans text-sm text-white/50">
             {{ t('contact.occupancy.loading') }}
@@ -165,17 +188,19 @@ export default { name: 'HallAvailabilityBoard' }
 </script>
 
 <script setup lang="ts">
-import type {
-  MonthDayStatus,
-  MonthOccupancy,
-  OccupancyOverview,
-  OccupancySlot,
+import {
+  isVenueUnderMaintenance,
+  type MonthDayStatus,
+  type MonthOccupancy,
+  type OccupancyOverview,
+  type OccupancySlot,
 } from '@luxurydurbar/shared'
 
 type CalendarCell = {
   date: string | null
   day: number | null
   status: MonthDayStatus['status'] | null
+  maintenance: boolean
   clickable: boolean
   inMonth: boolean
 }
@@ -221,6 +246,10 @@ const monthTitle = computed(() => {
   }).format(d)
 })
 
+const popupUnderMaintenance = computed(() =>
+  popupDate.value ? isVenueUnderMaintenance(popupDate.value) : false,
+)
+
 const popupDateLabel = computed(() => {
   if (!popupDate.value) return ''
   const [y, m, d] = popupDate.value.split('-').map(Number)
@@ -242,7 +271,14 @@ const calendarCells = computed((): CalendarCell[] => {
 
   const cells: CalendarCell[] = []
   for (let i = 0; i < firstDow; i++) {
-    cells.push({ date: null, day: null, status: null, clickable: false, inMonth: false })
+    cells.push({
+      date: null,
+      day: null,
+      status: null,
+      maintenance: false,
+      clickable: false,
+      inMonth: false,
+    })
   }
   for (let day = 1; day <= daysInMonth; day++) {
     const date = `${year}-${String(month + 1).padStart(2, '0')}-${String(day).padStart(2, '0')}`
@@ -252,12 +288,20 @@ const calendarCells = computed((): CalendarCell[] => {
       date,
       day,
       status: isPast ? null : status,
+      maintenance: isVenueUnderMaintenance(date),
       clickable: !isPast,
       inMonth: true,
     })
   }
   while (cells.length % 7 !== 0) {
-    cells.push({ date: null, day: null, status: null, clickable: false, inMonth: false })
+    cells.push({
+      date: null,
+      day: null,
+      status: null,
+      maintenance: false,
+      clickable: false,
+      inMonth: false,
+    })
   }
   return cells
 })
@@ -287,6 +331,10 @@ function dayCellClass(cell: CalendarCell) {
   const selected = cell.date && cell.date === props.date
   const base =
     'border-white/10 bg-ink/40 text-white hover:border-gold/40 focus:outline-none focus-visible:border-gold cursor-pointer'
+  if (cell.maintenance) {
+    const maintenance = `${base} bg-amber-400/15 border-amber-400/40`
+    return selected ? `${maintenance} ring-1 ring-gold/40` : maintenance
+  }
   if (selected) return `${base} border-gold/60 ring-1 ring-gold/40`
   if (cell.status === 'booked') return `${base} bg-orange-400/10`
   if (cell.status === 'open') return `${base} bg-emerald-400/10`

@@ -699,7 +699,7 @@
     "occupancy": {
       "eyebrow": "Hall availability",
       "title": "See which halls are free",
-      "subtitle": "Browse the calendar — green days are open, orange days have bookings. Tap a date for hall and slot details.",
+      "subtitle": "Browse the calendar — green days are open, orange days have bookings. A wrench marks repair and maintenance through 31 October. Tap a date for hall and slot details.",
       "morning": "Morning",
       "evening": "Evening",
       "open": "Open",
@@ -709,6 +709,8 @@
       "error": "Could not load availability. You can still submit a request below.",
       "legendOpen": "Open",
       "legendBooked": "Booked",
+      "legendMaintenance": "Repair & maintenance",
+      "maintenanceNotice": "This date is under repair and maintenance through 31 October.",
       "prevMonth": "Previous month",
       "nextMonth": "Next month",
       "popupEyebrow": "Day details",

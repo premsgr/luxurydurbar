@@ -89,6 +89,15 @@ export function requireVenue(slug: string): Venue {
   return venue;
 }
 
+/** Inclusive last day the venue stays under repair and maintenance. */
+export const VENUE_MAINTENANCE_UNTIL = '2026-10-31';
+
+/** True for today through {@link VENUE_MAINTENANCE_UNTIL}, inclusive. */
+export function isVenueUnderMaintenance(isoDate: string): boolean {
+  const today = new Date().toISOString().slice(0, 10);
+  return isoDate >= today && isoDate <= VENUE_MAINTENANCE_UNTIL;
+}
+
 /** @deprecated Use Venue — kept for gradual migration of UI types */
 export type HallDto = Venue;
 

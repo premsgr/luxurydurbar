@@ -141,6 +141,23 @@ button, input, select, textarea {
 .dash-cal__dot.open { background: var(--ok); }
 .dash-cal__dot.booked { background: #f0a060; }
 .dash-cal__dot.blocked { background: var(--muted); }
+.dash-cal__wrench {
+  width: 0.9rem;
+  height: 0.9rem;
+  color: #e8b86d;
+  flex-shrink: 0;
+}
+.dash-cal__sr {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
 .dash-cal__grid {
   display: grid;
   grid-template-columns: repeat(7, 1fr);
@@ -155,6 +172,7 @@ button, input, select, textarea {
   padding-bottom: 0.35rem;
 }
 .dash-cal__day {
+  position: relative;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -179,6 +197,14 @@ button, input, select, textarea {
 .dash-cal__day.open { background: rgba(62, 207, 142, 0.08); }
 .dash-cal__day.booked { background: rgba(240, 160, 96, 0.12); }
 .dash-cal__day.blocked { background: rgba(154, 163, 178, 0.1); }
+.dash-cal__day.maintenance:not(.booked):not(.blocked) {
+  background: rgba(232, 184, 109, 0.16);
+}
+.dash-cal__maint-note {
+  margin: 0.35rem 0 0;
+  color: #e8b86d;
+  font-size: 0.85rem;
+}
 .dash-cal__day.today { border-color: var(--gold); }
 .dash-cal__day.selected {
   border-color: var(--gold);
@@ -253,6 +279,6 @@ button, input, select, textarea {
 @media (max-width: 800px) {
   .layout { grid-template-columns: 1fr; }
   .sidebar { border-right: 0; border-bottom: 1px solid var(--border); }
-  .dash-cal__day { min-height: 2.6rem; }
+  .dash-cal__day { min-height: 3rem; }
   .dash-cal__day-status { display: none; }
 }

@@ -22,6 +22,12 @@
       <span><i class="dash-cal__dot open" /> Open</span>
       <span><i class="dash-cal__dot booked" /> Booked</span>
       <span><i class="dash-cal__dot blocked" /> Blocked</span>
+      <span>
+        <svg class="dash-cal__wrench" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z" />
+        </svg>
+        Repair &amp; maintenance
+      </span>
     </div>
 
     <p v-if="monthLoading" class="muted">Loading calendar…</p>
@@ -38,7 +44,21 @@
         @click="onDayClick(cell)"
       >
         <span v-if="cell.day" class="dash-cal__day-num">{{ cell.day }}</span>
-        <span v-if="cell.inMonth && cell.status" class="dash-cal__day-status" :class="cell.status">
+        <svg
+          v-if="cell.maintenance"
+          class="dash-cal__wrench"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          aria-hidden="true"
+        >
+          <path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z" />
+        </svg>
+        <span v-if="cell.maintenance" class="dash-cal__sr">Repair and maintenance</span>
+        <span v-else-if="cell.inMonth && cell.status" class="dash-cal__day-status" :class="cell.status">
           {{ statusLabel(cell.status) }}
         </span>
       </button>
@@ -60,6 +80,9 @@
                 Day agenda
               </div>
               <h3 style="margin: 0.25rem 0 0">{{ popupDateLabel }}</h3>
+              <p v-if="popupUnderMaintenance" class="dash-cal__maint-note">
+                Repair and maintenance through 31 October.
+              </p>
             </div>
             <button class="btn secondary" type="button" @click="closePopup">Close</button>
           </div>
@@ -105,7 +128,14 @@
 
 <script setup lang="ts">
 import { computed, onMounted, onUnmounted, ref, watch } from 'vue'
-import { VENUES, type AdminDayAgenda, type AdminMonthOccupancy, type BookingDto, type BlockedSlotDto } from '@luxurydurbar/shared'
+import {
+  VENUES,
+  isVenueUnderMaintenance,
+  type AdminDayAgenda,
+  type AdminMonthOccupancy,
+  type BookingDto,
+  type BlockedSlotDto,
+} from '@luxurydurbar/shared'
 import { api } from '../lib/api'
 
 type DayStatus = 'open' | 'booked' | 'blocked'
@@ -114,6 +144,7 @@ type CalendarCell = {
   date: string | null
   day: number | null
   status: DayStatus | null
+  maintenance: boolean
   inMonth: boolean
 }
 
@@ -142,6 +173,10 @@ const monthTitle = computed(() => {
   }).format(d)
 })
 
+const popupUnderMaintenance = computed(() =>
+  popupDate.value ? isVenueUnderMaintenance(popupDate.value) : false,
+)
+
 const popupDateLabel = computed(() => {
   if (!popupDate.value) return ''
   const [y, m, d] = popupDate.value.split('-').map(Number)
@@ -162,7 +197,7 @@ const calendarCells = computed((): CalendarCell[] => {
 
   const cells: CalendarCell[] = []
   for (let i = 0; i < firstDow; i++) {
-    cells.push({ date: null, day: null, status: null, inMonth: false })
+    cells.push({ date: null, day: null, status: null, maintenance: false, inMonth: false })
   }
   for (let day = 1; day <= daysInMonth; day++) {
     const date = `${year}-${String(month + 1).padStart(2, '0')}-${String(day).padStart(2, '0')}`
@@ -170,11 +205,12 @@ const calendarCells = computed((): CalendarCell[] => {
       date,
       day,
       status: dayStatus.value[date] ?? 'open',
+      maintenance: isVenueUnderMaintenance(date),
       inMonth: true,
     })
   }
   while (cells.length % 7 !== 0) {
-    cells.push({ date: null, day: null, status: null, inMonth: false })
+    cells.push({ date: null, day: null, status: null, maintenance: false, inMonth: false })
   }
   return cells
 })
@@ -205,6 +241,7 @@ function statusLabel(status: DayStatus) {
 function dayCellClass(cell: CalendarCell) {
   if (!cell.inMonth) return 'empty'
   const classes = [cell.status ?? 'open']
+  if (cell.maintenance) classes.push('maintenance')
   if (cell.date === popupDate.value) classes.push('selected')
   if (cell.date === today) classes.push('today')
   return classes.join(' ')
